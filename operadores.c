@@ -9,4 +9,3 @@ typedef struct _Op{
     FuncionEvaluacion evaluador;
 };
 
-typedef struct _Op *Operador;

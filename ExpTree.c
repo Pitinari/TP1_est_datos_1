@@ -1,8 +1,9 @@
 #include "stdlib.h"
 #include "ExpTree.h"
+#include "operadores.h"
 
 typedef struct _ExpTreeNode {
-    char op;
+    Operador op;
     int value;
     struct  _ExpTreeNode *right;
     struct  _ExpTreeNode *left;

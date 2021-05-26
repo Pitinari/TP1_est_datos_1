@@ -1,7 +1,6 @@
 #include "stdlib.h"
 
-
-
+typedef struct _Op *Operador;
 
 typedef int (* FuncionEvaluacion) (int *args);
 
