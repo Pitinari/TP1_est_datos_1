@@ -9,3 +9,5 @@ void ExpTree_destruir(ExpTree nodo);
 
 ExpTree ExpTree_unir(char op,int dato, ExpTree left, ExpTree right);
 
+ExpTree ExpTree_Parse(char *sentence);
+

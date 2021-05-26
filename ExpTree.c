@@ -8,7 +8,7 @@ typedef struct _ExpTreeNode {
     struct  _ExpTreeNode *left;
 };
 
-ExpTree btree_crear() { return NULL; }
+ExpTree ExpTree_crear() { return NULL; }
 
 void ExpTree_destruir(ExpTree nodo) {
     if (nodo != NULL) {
@@ -27,3 +27,11 @@ ExpTree ExpTree_unir(char op,int dato, ExpTree left, ExpTree right) {
   nuevoNodo->right = right;
   return nuevoNodo;
 }
+
+// ExpTree ExpTree_Parse(char *sentence){
+//     if (*sentence == '\0'){
+//         return ExpTree_crear();
+//     }
+
+
+// }
