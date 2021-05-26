@@ -36,3 +36,7 @@ ExpTree ExpTree_unir(char op,int dato, ExpTree left, ExpTree right) {
 
 
 // }
+
+// int ExpTree_evaluate(ExpTree tree){
+//     return val
+// }

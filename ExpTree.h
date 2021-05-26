@@ -11,3 +11,5 @@ ExpTree ExpTree_unir(char op,int dato, ExpTree left, ExpTree right);
 
 ExpTree ExpTree_Parse(char *sentence);
 
+int ExpTree_evaluate(ExpTree tree)
+
