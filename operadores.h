@@ -4,6 +4,7 @@ typedef struct _Op *Operador;
 
 typedef int (* FuncionEvaluacion) (int *args);
 
+typedef struct _TablaOp *_TablaOp;
 
 int suma(int *args);
 int resta(int *args);
