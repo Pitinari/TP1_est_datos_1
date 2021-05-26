@@ -15,3 +15,8 @@ int potencia(int *args);
 
 
 void cargar_operador();
+
+// Operador buscar_operador(char *simbolo, TablaOperadores tabla)
+
+// Destruye la tabla y libera la memoria de cada operador individual
+// void tablaOperadores_destruir(TablaOperadores tabla)
