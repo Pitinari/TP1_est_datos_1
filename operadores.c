@@ -2,15 +2,13 @@
 #include "operadores.h"
 #include "strings.h"
 
-typedef int (* FuncionEvaluacion) (int *args);
-
-typedef struct _Op{
+struct _Op{
     char *simbolo;
     int aridad;
     FuncionEvaluacion evaluador;
 };
 
-typedef struct _TablaOp{
+struct _TablaOp{
     struct _Op *op;
     struct _TablaOp *sig;
 };

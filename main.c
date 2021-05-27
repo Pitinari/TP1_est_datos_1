@@ -1,3 +1,4 @@
+#include "stdio.h"
 #include "ExpTree.h"
 #include "operadores.h"
 #include "Expression.h"
@@ -12,7 +13,7 @@ int main() {
 
     ExpTree tree = ExpTree_Parse(exp,stack,operadores);
 
-    printf(ExpTree_inorder(tree));
+    printf("%s",ExpTree_inorder(tree));
 
 }
 
