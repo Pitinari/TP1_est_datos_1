@@ -18,7 +18,7 @@ void cargar_operador(TablaOp indice,char sim,int ari,FuncionEvaluacion func);
 
 TablaOp crear_tabla_operadores ();
 
-// Operador buscar_operador(char *simbolo, TablaOperadores tabla)
+Operador buscar_operador(char *simbolo, TablaOp tabla);
 
 // Destruye la tabla y libera la memoria de cada operador individual
-// void tablaOperadores_destruir(TablaOperadores tabla)
+void destruir_tabla_operadores(TablaOp tabla);

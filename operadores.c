@@ -1,5 +1,6 @@
 #include "stdlib.h"
 #include "operadores.h"
+#include "strings.h"
 
 typedef int (* FuncionEvaluacion) (int *args);
 
@@ -44,6 +45,23 @@ int potencia(int *args){
     valor *= args[0];
   }
   return valor;
+}
+
+void destruir_tabla_operadores(TablaOp tabla){
+  while(tabla != NULL){
+    destruir_tabla_operadores(tabla->sig);
+    free(tabla->op);
+    free(tabla);
+  }
+}
+
+Operador buscar_operador(char *simbolo, TablaOp tabla){
+  while(tabla != NULL){
+    if(strcmp(tabla->op->simbolo, simbolo)) {
+      return tabla->op;
+    }
+  }
+  return NULL;
 }
 
 void cargar_operador (TablaOp indice,char sim,int ari,FuncionEvaluacion func){
