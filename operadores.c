@@ -19,7 +19,7 @@ int suma(int *args){
 }
 
 int resta(int *args){
-  return arg[0]-args[1];
+  return args[0]-args[1];
 }
 
 int opuesto(int *args){
@@ -47,30 +47,50 @@ int potencia(int *args){
 }
 
 void cargar_operador (TablaOp indice,char sim,int ari,FuncionEvaluacion func){
+  // si la tabla esta vacia 
+  if (indice == NULL){
+    Operador opAux;
+    opAux = malloc(sizeof(struct _Op));
+    opAux->simbolo = sim;
+    opAux->aridad = ari;
+    opAux->evaluador = func;
+
+    indice = malloc(sizeof(struct _TablaOp));
+    indice->op = opAux;
+    indice->sig = NULL;
+    indice = indice->sig;
+    
+    return;
+  }
+
+  // Si no esta vacia ir hasta el ultimo elemento
+  while(indice->sig != NULL){
+    indice = indice->sig;
+  }
+  
   Operador opAux;
-  opAux = malloc(sizeof(_Op));
+  opAux = malloc(sizeof(struct _Op));
   opAux->simbolo = sim;
   opAux->aridad = ari;
   opAux->evaluador = func;
 
-  indice = malloc(sizeof(_TablaOp));
+  indice = malloc(sizeof(struct _TablaOp));
   indice->op = opAux;
   indice->sig = NULL;
   indice = indice->sig;
+  return;
 }
 
 TablaOp crear_tabla_operadores (){
-  typedef struct _TablaOp *tabla;
-  typedef struct _TablaOp *indice;
-  indice = tabla;
+  TablaOp tabla;
 
-  cargar_operador(indice , "+" , 2 , suma);
-  cargar_operador(indice , "-" , 2 , resta);
-  cargar_operador(indice , "--" , 1 , opuesto);
-  cargar_operador(indice , "*" , 2 , producto);
-  cargar_operador(indice , "/" , 2 , division);
-  cargar_operador(indice , "|" , 1 , modulo);
-  cargar_operador(indice , "^" , 2 , potencia);
+  cargar_operador(tabla , "+" , 2 , suma);
+  cargar_operador(tabla , "-" , 2 , resta);
+  cargar_operador(tabla , "--" , 1 , opuesto);
+  cargar_operador(tabla , "*" , 2 , producto);
+  cargar_operador(tabla , "/" , 2 , division);
+  cargar_operador(tabla , "%" , 1 , modulo);
+  cargar_operador(tabla , "^" , 2 , potencia);
 
   return tabla;
 }
