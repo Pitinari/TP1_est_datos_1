@@ -11,7 +11,7 @@ typedef struct _Op{
 };
 
 typedef struct _TablaOp{
-    Operador op;
+    struct _Op *op;
     struct _TablaOp *sig;
 };
 

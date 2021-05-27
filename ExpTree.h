@@ -1,7 +1,9 @@
 #include "stdlib.h"
+#include "operadores.h"
 
 typedef struct _ExpTreeNode *ExpTree;
 
+typedef struct _ExpNodeStack *ExpNodeStack;
 
 ExpTree ExpTree_crear();
 
@@ -9,7 +11,9 @@ void ExpTree_destruir(ExpTree nodo);
 
 ExpTree ExpTree_unir(char op,int dato, ExpTree left, ExpTree right);
 
-ExpTree ExpTree_Parse(char *sentence);
+ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack,TablaOp tabla);
 
-int ExpTree_evaluate(ExpTree tree)
+char *ExpTree_inorder(ExpTree tree);
+
+int ExpTree_evaluate(ExpTree tree);
 
