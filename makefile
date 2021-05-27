@@ -11,6 +11,6 @@ $(EX).o:	$(EX).c	$(EX).h	$(ET).o
 $(ET).o:	$(ET).c	$(ET).h	$(OP).o
 	$(CC)	-c	$(ET).c
 $(OP).o:	$(OP).c	$(OP).h
-	$(CC) -o $(OP).c
+	$(CC) -c $(OP).c
 clean:
 	rm	*.o
