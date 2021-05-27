@@ -14,8 +14,7 @@ int division(int *args);
 int modulo(int *args);
 int potencia(int *args);
 
-
-void cargar_operador();
+void cargar_operador(TablaOp indice,char sim,int ari,FuncionEvaluacion func);
 
 TablaOp crear_tabla_operadores ();
 
