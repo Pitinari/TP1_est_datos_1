@@ -46,80 +46,31 @@ int potencia(int *args){
   return valor;
 }
 
-TablaOp agregar_operador (TablaOp indice,Operador operador){
-  indice->sig = malloc(sizeof(_TablaOp));
-  indice->sig->op = operador;
-  indice->sig->sig = NULL;
-  return indice->sig;
+void cargar_operador (TablaOp indice,char sim,int ari,FuncionEvaluacion func){
+  Operador opAux;
+  opAux = malloc(sizeof(_Op));
+  opAux->simbolo = sim;
+  opAux->aridad = ari;
+  opAux->evaluador = func;
+
+  indice = malloc(sizeof(_TablaOp));
+  indice->op = opAux;
+  indice->sig = NULL;
+  indice = indice->sig;
 }
 
-TablaOp iniciar_tabla_operadores (){
+TablaOp crear_tabla_operadores (){
   typedef struct _TablaOp *tabla;
   typedef struct _TablaOp *indice;
   indice = tabla;
 
-  typedef struct _Op *opSuma;
-  opSuma = malloc(sizeof(typedef struct _Op));
-  opSuma->simbolo = malloc(sizeof(char));
-  *(opSuma->simbolo) = '+';
-  opSuma->aridad = 2;
-  opSuma->evaluador = suma;
-
-  indice->op = opSuma;
-
-  typedef struct _Op *opResta;
-  opResta = malloc(sizeof(typedef struct _Op));
-  opResta->simbolo = malloc(sizeof(char));
-  *(opResta->simbolo) = '-';
-  opResta->aridad = 2;
-  opResta->evaluador = resta;
-
-  indice = agregar_operador(indice,opResta);
-
-  typedef struct _Op *opOpuesto;
-  opOpuesto = malloc(sizeof(typedef struct _Op));
-  opOpuesto->simbolo = malloc(sizeof(char));
-  *(opOpuesto->simbolo) = '--';
-  opOpuesto->aridad = 1;
-  opOpuesto->evaluador = opuesto;
-
-  indice = agregar_operador(indice,opOpuesto);
-
-  typedef struct _Op *opProducto;
-  opProducto = malloc(sizeof(typedef struct _Op));
-  opProducto->simbolo = malloc(sizeof(char));
-  *(opProducto->simbolo) = '*';
-  opProducto->aridad = 2;
-  opProducto->evaluador = producto;
-
-  indice = agregar_operador(indice,opProducto);
-
-  typedef struct _Op *opDivision;
-  opDivision = malloc(sizeof(typedef struct _Op));
-  opDivision->simbolo = malloc(sizeof(char));
-  *(opDivision->simbolo) = '/';
-  opDivision->aridad = 2;
-  opDivision->evaluador = division;
-
-  indice = agregar_operador(indice,opDivision);
-
-  typedef struct _Op *opModulo;
-  opModulo = malloc(sizeof(typedef struct _Op));
-  opModulo->simbolo = malloc(sizeof(char));
-  *(opModulo->simbolo) = '|';
-  opModulo->aridad = 1;
-  opModulo->evaluador = modulo;
-
-  indice = agregar_operador(indice,opModulo);
-
-  typedef struct _Op *opPotencia;
-  opPotencia = malloc(sizeof(typedef struct _Op));
-  opPotencia->simbolo = malloc(sizeof(char));
-  *(opPotencia->simbolo) = '^';
-  opPotencia->aridad = 2;
-  opPotencia->evaluador = potencia;
-
-  indice = agregar_operador(indice,opPotencia);
+  cargar_operador(indice , "+" , 2 , suma);
+  cargar_operador(indice , "-" , 2 , resta);
+  cargar_operador(indice , "--" , 1 , opuesto);
+  cargar_operador(indice , "*" , 2 , producto);
+  cargar_operador(indice , "/" , 2 , division);
+  cargar_operador(indice , "|" , 1 , modulo);
+  cargar_operador(indice , "^" , 2 , potencia);
 
   return tabla;
 }
