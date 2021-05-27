@@ -74,8 +74,7 @@ void cargar_operador (TablaOp indice,char sim,int ari,FuncionEvaluacion func){
     indice = malloc(sizeof(struct _TablaOp));
     indice->op = opAux;
     indice->sig = NULL;
-    indice = indice->sig;
-    
+        
     return;
   }
 
