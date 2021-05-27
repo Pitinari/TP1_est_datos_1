@@ -1,6 +1,7 @@
 #include "stdlib.h"
 #include "ExpTree.h"
 #include "operadores.h"
+#include "string.h"
 
 typedef struct _ExpTreeNode {
     Operador op;

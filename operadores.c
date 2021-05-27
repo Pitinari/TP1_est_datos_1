@@ -1,6 +1,6 @@
 #include "stdlib.h"
 #include "operadores.h"
-#include "strings.h"
+#include "string.h"
 
 struct _Op{
     char *simbolo;
