@@ -1,8 +1,22 @@
+#ifndef OPERADORES_H
+#define OPERADORES_H
+
 #include "stdlib.h"
 
-typedef struct _Op *Operador;
+typedef int (*FuncionEvaluacion) (int *args);
 
-typedef int (* FuncionEvaluacion) (int *args);
+struct _Op{
+    char *simbolo;
+    int aridad;
+    FuncionEvaluacion evaluador;
+};
+
+struct _TablaOp{
+    struct _Op *op;
+    struct _TablaOp *sig;
+};
+
+typedef struct _Op *Operador;
 
 typedef struct _TablaOp *TablaOp;
 
@@ -14,7 +28,7 @@ int division(int *args);
 int modulo(int *args);
 int potencia(int *args);
 
-void cargar_operador(TablaOp indice,char sim,int ari,FuncionEvaluacion func);
+void cargar_operador(TablaOp indice,char sim[],int ari,FuncionEvaluacion func);
 
 TablaOp crear_tabla_operadores();
 
@@ -22,3 +36,5 @@ Operador buscar_operador(char *simbolo, TablaOp tabla);
 
 // Destruye la tabla y libera la memoria de cada operador individual
 void destruir_tabla_operadores(TablaOp tabla);
+
+#endif

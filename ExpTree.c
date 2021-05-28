@@ -1,14 +1,9 @@
+#include "stdio.h"
 #include "stdlib.h"
 #include "ExpTree.h"
 #include "operadores.h"
 #include "string.h"
-
-typedef struct _ExpTreeNode {
-    Operador op;
-    int value;
-    struct  _ExpTreeNode *right;
-    struct  _ExpTreeNode *left;
-};
+#include "assert.h"
 
 ExpTree ExpTree_crear() { return NULL; }
 
@@ -20,7 +15,8 @@ void ExpTree_destruir(ExpTree nodo) {
     }
 }
 
-ExpTree ExpTree_unir(char op,int dato, ExpTree left, ExpTree right) {
+//esto creo que esta al pedo
+/*ExpTree ExpTree_unir(Operador op,int dato, ExpTree left, ExpTree right) {
   ExpTree nuevoNodo = malloc(sizeof(struct _ExpTreeNode));
   assert(nuevoNodo != NULL);
   nuevoNodo->op = op;
@@ -28,13 +24,7 @@ ExpTree ExpTree_unir(char op,int dato, ExpTree left, ExpTree right) {
   nuevoNodo->left = left;
   nuevoNodo->right = right;
   return nuevoNodo;
-}
-
-typedef struct _ExpNodeStack {
-    struct _ExpTreeNode *node;
-    struct _ExpNodeStack *sig;
-    struct _ExpNodeStack *prev;
-};
+}*/
 
 ExpNodeStack push(ExpTree node, ExpNodeStack stack){
     ExpNodeStack new = malloc(sizeof(struct _ExpNodeStack));
@@ -60,14 +50,14 @@ ExpTree pop(ExpNodeStack stack){
 
 ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
     char *token;
-    while(token = strtock(sentence, " ")){
+    while(token = strtok(sentence, " ")){
         Operador op = buscar_operador(token,tabla);
         
         if(op != NULL){
             ExpTree node = malloc(sizeof(struct _ExpTreeNode));
 
             node->op = op;
-            node->value = NULL;
+            node->value = NULL; //cambie los valores por punteros para que exista un valor null
 
             if(op->aridad >= 1){
                 node->left = pop(stack);
@@ -83,7 +73,7 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
             ExpTree node = malloc(sizeof(struct _ExpTreeNode));
 
             node->op = NULL;
-            node->value = value;
+            node->value = &value;
             node->right = ExpTree_crear();
             node->left = ExpTree_crear();
 
@@ -94,13 +84,30 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
     return pop(stack);
 }
 
+int cant_digitos(int numero){
+  int digitos = 0;
+  do{
+    digitos++;
+    numero /= 10;
+  }while(numero != 0);
+
+  return digitos;
+}
+
 char *ExpTree_inorder(ExpTree tree){
     if(tree == NULL){
         return "";
     }
 
     if(tree->op == NULL){
-        return to_string(tree->value);
+        int dig = cant_digitos(*(tree->value));
+        char *aux;
+        if(*(tree->value) >= 0)
+          aux = malloc(sizeof(char)*(dig+1));
+        else
+          aux = malloc(sizeof(char)*(dig+2)); //reservo 1 mas de memoria por el -
+        sprintf(aux, "%d", *(tree->value)); //guarda en aux el valor del int, use esto porque itoa no funcionaba
+        return aux;
     }
     char base[] = "";
 

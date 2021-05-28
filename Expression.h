@@ -1,3 +1,6 @@
+#ifndef EXPRESSION_H
+#define EXPRESSION_H
+
 #include "stdlib.h"
 
 typedef struct _Exp *Expression;
@@ -17,3 +20,5 @@ char* Expression_inorder(Expression exp);
 
 // Destruye la expresion liberando memoria
 void Expression_destroy(Expression exp);
+
+#endif

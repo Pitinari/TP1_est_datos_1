@@ -2,17 +2,6 @@
 #include "operadores.h"
 #include "string.h"
 
-struct _Op{
-    char *simbolo;
-    int aridad;
-    FuncionEvaluacion evaluador;
-};
-
-struct _TablaOp{
-    struct _Op *op;
-    struct _TablaOp *sig;
-};
-
 int suma(int *args){
   return args[0]+args[1];
 }
@@ -62,11 +51,11 @@ Operador buscar_operador(char *simbolo, TablaOp tabla){
   return NULL;
 }
 
-void cargar_operador (TablaOp indice,char sim,int ari,FuncionEvaluacion func){
+void cargar_operador (TablaOp indice,char sim[],int ari,FuncionEvaluacion func){
   // si la tabla esta vacia 
   if (indice == NULL){
     Operador opAux;
-    opAux = malloc(sizeof(struct _Op));
+    opAux = (struct _Op*)malloc(sizeof(struct _Op));
     opAux->simbolo = sim;
     opAux->aridad = ari;
     opAux->evaluador = func;
