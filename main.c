@@ -6,7 +6,9 @@
 #include "string.h"
 
 int main() {
-    char exp[] = "5 -- 13 + 2 * 7 +";
+    char exp[] = "87 3 ^ 42 / 3 *";
+
+    int value = ((87 ^ 3) / 42 ) * 3;
 
     printf("Created operators \n");
     TablaOp operadores = crear_tabla_operadores();
@@ -22,5 +24,7 @@ int main() {
 
     printf("Evaluate tree \n");
     printf("%d \n",ExpTree_evaluate(tree));
+    printf("Evaluate tree \n");
+    printf("%d \n",value);
 }
 

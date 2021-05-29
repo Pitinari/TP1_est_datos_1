@@ -24,15 +24,11 @@ int division(int *args){
 }
 
 int modulo(int *args){
-  return abs(*args);
+  return args[0] % args[1];
 }
 
 int potencia(int *args){
-  int valor = args[0];
-  for(int i = 0 ; i < args[1] ; i++){
-    valor *= args[0];
-  }
-  return valor;
+  return args[0]^args[1];
 }
 
 void destruir_tabla_operadores(TablaOp tabla){
