@@ -30,29 +30,33 @@ ExpNodeStack push(ExpTree node, ExpNodeStack stack){
     ExpNodeStack new = malloc(sizeof(struct _ExpNodeStack));
 
     new->node = node;
-    new->sig = NULL;
     new->prev = stack;
 
     return new;
 }
 
-ExpTree pop(ExpNodeStack stack){
+ExpTree top(ExpNodeStack stack){
+    return stack->node;
+}
+ExpNodeStack pop(ExpNodeStack stack){
 
     ExpTree n = stack->node;
 
-    stack = stack->prev;
+    ExpNodeStack prev = stack->prev;
 
-    free(stack->sig);
-
-    return n;
+    free(stack);
+    return prev;
 
 }
 
+// TODO: add wrapper function that doesn't need the stack and operators 
 ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
+
     char *token;
-    while(token = strtok(sentence, " ")){
+    while(token = strsep(&sentence, " ")){
+
         Operador op = buscar_operador(token,tabla);
-        
+
         if(op != NULL){
             ExpTree node = malloc(sizeof(struct _ExpTreeNode));
 
@@ -60,12 +64,18 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
             node->value = NULL; //cambie los valores por punteros para que exista un valor null
 
             if(op->aridad >= 1){
-                node->left = pop(stack);
+                node->left = top(stack);
+                stack = pop(stack);
                 node->right = NULL;
             }
+
             if(op->aridad == 2){
-                node->right = pop(stack);
+                node->right = top(stack);
+                stack = pop(stack);
             }
+
+            stack = push(node, stack);
+
         } else {
             // if we want to be able to use aliases in the expression it must be done here
             int value = atoi(token);
@@ -73,24 +83,24 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
             ExpTree node = malloc(sizeof(struct _ExpTreeNode));
 
             node->op = NULL;
-            node->value = &value;
+            node->value = value;
             node->right = ExpTree_crear();
             node->left = ExpTree_crear();
 
-            push(node, stack);
+            stack = push(node, stack);
         }
     }
-
-    return pop(stack);
+    ExpTree tree = top(stack);
+    pop(stack);
+    return tree;
 }
 
 int cant_digitos(int numero){
-  int digitos = 0;
-  do{
+  int digitos = 1;
+  while(numero != 0){
     digitos++;
     numero /= 10;
-  }while(numero != 0);
-
+  };
   return digitos;
 }
 
@@ -100,20 +110,25 @@ char *ExpTree_inorder(ExpTree tree){
     }
 
     if(tree->op == NULL){
-        int dig = cant_digitos(*(tree->value));
-        char *aux;
-        if(*(tree->value) >= 0)
-          aux = malloc(sizeof(char)*(dig+1));
-        else
-          aux = malloc(sizeof(char)*(dig+2)); //reservo 1 mas de memoria por el -
-        sprintf(aux, "%d", *(tree->value)); //guarda en aux el valor del int, use esto porque itoa no funcionaba
-        return aux;
-    }
-    char base[] = "";
+        int length = cant_digitos(tree->value);
+        char *tmp = malloc(sizeof(char) * length);
+        
+        sprintf(tmp, "%d", tree->value);;
 
-    strcat(base, ExpTree_inorder(tree->left));
-    strcat(base,tree->op->simbolo);
-    strcat(base,ExpTree_inorder(tree->right));
+        return tmp;
+    }
+
+    char *leftExp = ExpTree_inorder(tree->left);
+    char *rightExp = ExpTree_inorder(tree->right);
+    char *simbol = tree->op->simbolo;
+
+    int totalLength = strlen(leftExp) + strlen(simbol) + strlen(rightExp);
+
+    char *base = malloc(sizeof(char) * totalLength);
+
+    strcat(base, rightExp);
+    strcat(base, simbol);
+    strcat(base, leftExp);
 
     return base;
 }

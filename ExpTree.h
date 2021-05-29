@@ -7,14 +7,13 @@
 
 struct _ExpTreeNode {
     Operador op;
-    int *value;
+    int value;
     struct  _ExpTreeNode *right;
     struct  _ExpTreeNode *left;
 };
 
 struct _ExpNodeStack {
     struct _ExpTreeNode *node;
-    struct _ExpNodeStack *sig;
     struct _ExpNodeStack *prev;
 };
 

@@ -1,4 +1,5 @@
 #include "stdlib.h"
+#include "stdio.h"
 #include "operadores.h"
 #include "string.h"
 
@@ -44,57 +45,38 @@ void destruir_tabla_operadores(TablaOp tabla){
 
 Operador buscar_operador(char *simbolo, TablaOp tabla){
   while(tabla != NULL){
-    if(strcmp(tabla->op->simbolo, simbolo)) {
+    if(strcmp(tabla->op->simbolo, simbolo) == 0) {
       return tabla->op;
     }
+    tabla = tabla->sig;
   }
   return NULL;
 }
 
-void cargar_operador (TablaOp indice,char sim[],int ari,FuncionEvaluacion func){
-  // si la tabla esta vacia 
-  if (indice == NULL){
-    Operador opAux;
-    opAux = (struct _Op*)malloc(sizeof(struct _Op));
-    opAux->simbolo = sim;
-    opAux->aridad = ari;
-    opAux->evaluador = func;
-
-    indice = malloc(sizeof(struct _TablaOp));
-    indice->op = opAux;
-    indice->sig = NULL;
-        
-    return;
-  }
-
-  // Si no esta vacia ir hasta el ultimo elemento
-  while(indice->sig != NULL){
-    indice = indice->sig;
-  }
-  
+TablaOp cargar_operador(TablaOp indice,char sim[],int ari,FuncionEvaluacion func) {
   Operador opAux;
-  opAux = malloc(sizeof(struct _Op));
+  opAux = (struct _Op*)malloc(sizeof(struct _Op));
   opAux->simbolo = sim;
   opAux->aridad = ari;
   opAux->evaluador = func;
+  
+  TablaOp new = malloc(sizeof(struct _TablaOp));
+  new->op = opAux;
+  new->sig = indice;
 
-  indice = malloc(sizeof(struct _TablaOp));
-  indice->op = opAux;
-  indice->sig = NULL;
-  indice = indice->sig;
-  return;
+  return new;
 }
 
 TablaOp crear_tabla_operadores (){
-  TablaOp tabla;
+  TablaOp tabla = NULL;
 
-  cargar_operador(tabla , "+" , 2 , suma);
-  cargar_operador(tabla , "-" , 2 , resta);
-  cargar_operador(tabla , "--" , 1 , opuesto);
-  cargar_operador(tabla , "*" , 2 , producto);
-  cargar_operador(tabla , "/" , 2 , division);
-  cargar_operador(tabla , "%" , 1 , modulo);
-  cargar_operador(tabla , "^" , 2 , potencia);
+  tabla = cargar_operador(tabla , "+" , 2 , suma);
+  tabla = cargar_operador(tabla , "-" , 2 , resta);
+  tabla = cargar_operador(tabla , "--" , 1 , opuesto);
+  tabla = cargar_operador(tabla , "*" , 2 , producto);
+  tabla = cargar_operador(tabla , "/" , 2 , division);
+  tabla = cargar_operador(tabla , "%" , 1 , modulo);
+  tabla = cargar_operador(tabla , "^" , 2 , potencia);
 
   return tabla;
 }

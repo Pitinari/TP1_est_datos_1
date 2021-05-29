@@ -3,6 +3,12 @@
 
 #include "stdlib.h"
 
+struct _Exp {
+    char *alias;
+    char *sentence;
+    ExpTree tree;
+};
+
 typedef struct _Exp *Expression;
 
 // Crea y retorna una expresion, con su alias y su "sentence" (la expresion en si)
