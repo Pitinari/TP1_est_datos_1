@@ -64,13 +64,13 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
             node->value = NULL; //cambie los valores por punteros para que exista un valor null
 
             if(op->aridad >= 1){
-                node->left = top(stack);
+                node->right = top(stack);
                 stack = pop(stack);
-                node->right = NULL;
+                node->left = NULL;
             }
 
             if(op->aridad == 2){
-                node->right = top(stack);
+                node->left = top(stack);
                 stack = pop(stack);
             }
 
@@ -126,13 +126,30 @@ char *ExpTree_inorder(ExpTree tree){
 
     char *base = malloc(sizeof(char) * totalLength);
 
-    strcat(base, rightExp);
-    strcat(base, simbol);
     strcat(base, leftExp);
+    strcat(base, simbol);
+    strcat(base, rightExp);
 
     return base;
 }
 
-// int ExpTree_evaluate(ExpTree tree){
-//     return val
-// }
+int ExpTree_evaluate(ExpTree tree){    
+    if(tree->op == NULL) {
+        return tree->value;
+    }
+
+    int params[2];
+
+    int rightValue = ExpTree_evaluate(tree->right);
+    if(tree->op->aridad == 1) {
+        params[0] = rightValue;
+    }
+
+    if(tree->op->aridad == 2) {
+    int leftValue = ExpTree_evaluate(tree->left);
+        params[0] = leftValue;
+        params[1] = rightValue;
+    }
+
+    return tree->op->evaluador(params);
+}

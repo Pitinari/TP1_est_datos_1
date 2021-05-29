@@ -18,6 +18,9 @@ int main() {
     ExpTree tree = ExpTree_Parse(exp,stack,operadores);
 
     printf("Print tree \n");
-    printf("%s",ExpTree_inorder(tree));
+    printf("%s \n",ExpTree_inorder(tree));
+
+    printf("Evaluate tree \n");
+    printf("%d \n",ExpTree_evaluate(tree));
 }
 
