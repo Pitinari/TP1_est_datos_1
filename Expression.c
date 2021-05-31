@@ -1,6 +1,7 @@
 #include "stdlib.h"
 #include "ExpTree.h"
 #include "Expression.h"
+#include "stdio.h"
 
 
 Expression Expression_create(char *alias, char *sentence, TablaOp operators){

@@ -25,11 +25,11 @@ ExpTree ExpTree_crear();
 
 void ExpTree_destruir(ExpTree nodo);
 
+ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla);
+
 ExpTree ExpTree_Generate(char *sentence, TablaOp operators);
 
 char *ExpTree_inorder(ExpTree tree);
-
-int cant_digitos(int numero);
 
 int ExpTree_evaluate(ExpTree tree);
 

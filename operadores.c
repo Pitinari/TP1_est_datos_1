@@ -1,5 +1,4 @@
 #include "stdlib.h"
-#include "stdio.h"
 #include "operadores.h"
 #include "string.h"
 #include "math.h"
