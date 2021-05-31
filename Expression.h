@@ -5,7 +5,7 @@
 
 struct _Exp {
     char *alias;
-    char *sentence;
+    char *inorder;
     ExpTree tree;
 };
 
@@ -15,7 +15,7 @@ typedef struct _Exp *Expression;
 // Ademas cada expresion guarda su ExpTree
 // TODO: ademas necesita la tabla de operadores para parsear la oracion
 // En el caso que no tenga alias se setea en '\0'
-Expression Expression_create(char *alias, char *sentence);
+Expression Expression_create(char *alias, char *sentence, TablaOp operators);
 
 // recibe una expresion y la evalua, retorna el valor (no necesita la tabla de operadores ya que el arbol tiene un puntero a cada operador)
 int Expression_evaluate(Expression exp);

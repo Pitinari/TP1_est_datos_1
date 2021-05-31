@@ -32,13 +32,16 @@ ExpNodeStack pop(ExpNodeStack stack){
     ExpTree n = stack->node;
 
     ExpNodeStack prev = stack->prev;
-
     free(stack);
     return prev;
 
 }
 
-// TODO: add wrapper function that doesn't need the stack and operators 
+ExpTree ExpTree_Generate(char *sentence, TablaOp operadores){
+    ExpNodeStack stack = NULL;
+    return ExpTree_Parse(sentence,stack,operadores);
+}
+
 ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
 
     char *token;
@@ -54,12 +57,28 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
 
             if(op->aridad >= 1){
                 node->right = top(stack);
+                if(node->right == NULL){
+                    // error en la expresion retornamos null
+                    while(top(stack) != NULL){
+                        ExpTree_destruir(top(stack));
+                        stack = pop(stack);
+                    }
+                    return NULL;
+                }
                 stack = pop(stack);
                 node->left = NULL;
             }
 
             if(op->aridad == 2){
                 node->left = top(stack);
+                if(node->right == NULL){
+                    // error en la expresion retornamos null
+                    while(top(stack) != NULL){
+                        ExpTree_destruir(top(stack));
+                        stack = pop(stack);
+                    }
+                    return NULL;
+                }
                 stack = pop(stack);
             }
 
@@ -80,7 +99,17 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
         }
     }
     ExpTree tree = top(stack);
-    pop(stack);
+    stack = pop(stack);
+
+    if(top(stack) != NULL){
+        // quedaron nodos pendientes en el stack, por lo tanto la expresion esta mal
+        // liberamos todos los pendientes
+        while(top(stack) != NULL){
+            ExpTree_destruir(top(stack));
+            stack = pop(stack);
+        }
+        return NULL;
+    }
     return tree;
 }
 
@@ -118,6 +147,9 @@ char *ExpTree_inorder(ExpTree tree){
     strcat(base, leftExp);
     strcat(base, simbol);
     strcat(base, rightExp);
+
+    free(leftExp);
+    free(rightExp);
 
     return base;
 }

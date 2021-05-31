@@ -2,6 +2,7 @@
 #include "stdio.h"
 #include "operadores.h"
 #include "string.h"
+#include "math.h"
 
 int suma(int *args){
   return args[0]+args[1];
@@ -20,6 +21,10 @@ int producto(int *args){
 }
 
 int division(int *args){
+  // decision completamente arbitraria para que no crashee el programa
+  if(args[1] == 0){
+    return 0;
+  }
   return args[0]/args[1];
 }
 
@@ -28,15 +33,18 @@ int modulo(int *args){
 }
 
 int potencia(int *args){
-  return args[0]^args[1];
+  return pow(args[0], args[1]);
 }
 
 void destruir_tabla_operadores(TablaOp tabla){
-  while(tabla != NULL){
-    destruir_tabla_operadores(tabla->sig);
-    free(tabla->op);
-    free(tabla);
+  if(tabla == NULL){
+    return;
   }
+  destruir_tabla_operadores(tabla->sig);
+  // sera necesaria esta linea?
+  free(tabla->op->simbolo);
+  free(tabla->op);
+  free(tabla);
 }
 
 Operador buscar_operador(char *simbolo, TablaOp tabla){

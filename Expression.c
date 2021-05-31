@@ -3,14 +3,14 @@
 #include "Expression.h"
 
 
-Expression Expression_create(char *alias, char *sentence){
+Expression Expression_create(char *alias, char *sentence, TablaOp operators){
     Expression exp = malloc(sizeof(struct _Exp));
 
     exp->alias = alias;
-    exp->sentence = sentence;
+    exp->tree = ExpTree_Generate(sentence, operators);
+    exp->inorder = ExpTree_inorder(exp->tree);
 
-    exp->tree = parse_expression(sentence);
-
+    free(sentence);
     return exp;
 }
 
@@ -19,15 +19,11 @@ int Expression_evaluate(Expression exp){
 }
 
 void Expression_print(Expression exp){
-    char* inorder = ExpTree_inorder(exp->tree);
-
-    printf("%s \n", inorder);
-
-    free(inorder);
+    printf("%s \n", exp->inorder);
 }
 
 void Expression_destruir(Expression exp){
     free(exp->alias);
-    free(exp->sentence);
+    free(exp->inorder);
     ExpTree_destruir(exp->tree);
 }

@@ -25,9 +25,7 @@ ExpTree ExpTree_crear();
 
 void ExpTree_destruir(ExpTree nodo);
 
-//ExpTree ExpTree_unir(char op,int dato, ExpTree left, ExpTree right);
-
-ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack,TablaOp tabla);
+ExpTree ExpTree_Generate(char *sentence, TablaOp operators);
 
 char *ExpTree_inorder(ExpTree tree);
 
