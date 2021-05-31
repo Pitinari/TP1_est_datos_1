@@ -3,19 +3,6 @@
 #include "Expression.h"
 #include "stdio.h"
 
-struct _Exp {
-    char *alias;
-    char *inorder;
-    ExpTree tree;
-};
-
-
-struct _ListaExp {
-	Expression exp;
-	struct _ListaExp *sig;		
-};
-
-
 Expression Expression_create(char *alias, char *sentence, TablaOp operators){
     Expression exp = malloc(sizeof(struct _Exp));
 

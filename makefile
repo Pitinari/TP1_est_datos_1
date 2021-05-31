@@ -21,4 +21,4 @@ $(OP).o: $(OP).h $(OP).c
 
 clean:
 	rm	*.o
-	rm  $@.exe
+	rm  *.exe

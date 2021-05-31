@@ -5,7 +5,19 @@
 #include "operadores.h"
 #include "string.h"
 
+struct _ExpTreeNode {
+    Operador op;
+    int value;
+    struct  _ExpTreeNode *right;
+    struct  _ExpTreeNode *left;
+};
+
 typedef struct _ExpTreeNode *ExpTree;
+
+struct _ExpNodeStack {
+    struct _ExpTreeNode *node;
+    struct _ExpNodeStack *prev;
+};
 
 typedef struct _ExpNodeStack *ExpNodeStack;
 
