@@ -37,11 +37,6 @@ ExpNodeStack pop(ExpNodeStack stack){
 
 }
 
-ExpTree ExpTree_Generate(char *sentence, TablaOp operadores){
-    ExpNodeStack stack = NULL;
-    return ExpTree_Parse(sentence,stack,operadores);
-}
-
 ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
 
     char *token;
@@ -53,7 +48,7 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
             ExpTree node = malloc(sizeof(struct _ExpTreeNode));
 
             node->op = op;
-            node->value = NULL; //cambie los valores por punteros para que exista un valor null
+            node->value = 0; //por las dudas, no deberia ser accedido nunca
 
             if(op->aridad >= 1){
                 node->right = top(stack);
@@ -111,6 +106,11 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
         return NULL;
     }
     return tree;
+}
+
+ExpTree ExpTree_Generate(char *sentence, TablaOp operadores){
+    ExpNodeStack stack = NULL;
+    return ExpTree_Parse(sentence,stack,operadores);
 }
 
 int cant_digitos(int numero){
