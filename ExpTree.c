@@ -15,17 +15,6 @@ void ExpTree_destruir(ExpTree nodo) {
     }
 }
 
-//esto creo que esta al pedo
-/*ExpTree ExpTree_unir(Operador op,int dato, ExpTree left, ExpTree right) {
-  ExpTree nuevoNodo = malloc(sizeof(struct _ExpTreeNode));
-  assert(nuevoNodo != NULL);
-  nuevoNodo->op = op;
-  nuevoNodo->value = dato;
-  nuevoNodo->left = left;
-  nuevoNodo->right = right;
-  return nuevoNodo;
-}*/
-
 ExpNodeStack push(ExpTree node, ExpNodeStack stack){
     ExpNodeStack new = malloc(sizeof(struct _ExpNodeStack));
 

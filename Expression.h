@@ -22,9 +22,9 @@ int Expression_evaluate(Expression exp);
 
 
 // retorna la representacion inorder del arbol, osea la expresion matematica en notacion normal 
-char* Expression_inorder(Expression exp);
+void Expression_print(Expression exp);
 
 // Destruye la expresion liberando memoria
-void Expression_destroy(Expression exp);
+void Expression_destruir(Expression exp);
 
 #endif

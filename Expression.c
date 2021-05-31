@@ -9,8 +9,25 @@ Expression Expression_create(char *alias, char *sentence){
     exp->alias = alias;
     exp->sentence = sentence;
 
-    // TODO:
-    // exp->tree = parse_expression(sentence)
+    exp->tree = parse_expression(sentence);
 
     return exp;
+}
+
+int Expression_evaluate(Expression exp){
+    return ExpTree_evaluate(exp->tree);
+}
+
+void Expression_print(Expression exp){
+    char* inorder = ExpTree_inorder(exp->tree);
+
+    printf("%s \n", inorder);
+
+    free(inorder);
+}
+
+void Expression_destruir(Expression exp){
+    free(exp->alias);
+    free(exp->sentence);
+    ExpTree_destruir(exp->tree);
 }
