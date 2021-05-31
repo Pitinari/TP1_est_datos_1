@@ -27,19 +27,19 @@ Expression buscar_alias (char *alias , LListExp lista){
 }
 
 void imprimir_alias (char *alias , LListExp lista_alias){
-    Expression exp buscar_alias(alias , lista_alias);
+    Expression exp = buscar_alias(alias , lista_alias);
     if (exp)
         printf("%s\n", exp->inorder);
     else
-        printf("No hay alias guardado con ese nombre\n", );
+        printf("No hay alias guardado con ese nombre\n");
 }
 
 void evaluar_alias (char *alias , LListExp lista_alias){
-    Expression exp buscar_alias(alias , lista_alias);
+    Expression exp = buscar_alias(alias , lista_alias);
     if (exp)
         printf("%d\n", Expression_evaluate(exp));
     else
-        printf("No hay alias guardado con ese nombre\n", );
+        printf("No hay alias guardado con ese nombre\n");
 }
 
 int analizar_comando (char *buffer , LListExp lista_alias , TablaOp operadores){
