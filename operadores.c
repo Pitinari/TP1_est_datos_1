@@ -20,6 +20,10 @@ int producto(int *args){
 }
 
 int division(int *args){
+  // decision completamente arbitraria para que no crashee el programa
+  if(args[1] == 0){
+    return 0;
+  }
   return args[0]/args[1];
 }
 
