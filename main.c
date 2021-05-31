@@ -72,6 +72,8 @@ int analizar_comando (char *buffer , LListExp lista_alias , TablaOp operadores){
     return 1;
 }
 
+//void liberar_lista_expresiones (LListExp lista_alias){}
+
 int main() {
     char exp[] = "87 3 ^ 42 / 3 *";
 
@@ -96,9 +98,10 @@ int main() {
     
     int continua_programa = 1;
     LListExp lista_alias;
-    while(continua_programa)
+    while(continua_programa){
         printf(">");
         continua_programa = analizar_comando(ingresar_buffer(),lista_alias,operadores);
+    }
 
     return 0;
 }
