@@ -3,13 +3,14 @@
 #include "Expression.h"
 
 
-Expression Expression_create(char *alias, char *sentence){
+Expression Expression_create(char *alias, char *sentence, TablaOp operators){
     Expression exp = malloc(sizeof(struct _Exp));
 
     exp->alias = alias;
     exp->sentence = sentence;
 
-    exp->tree = parse_expression(sentence);
+
+    exp->tree = ExpTree_Generate(sentence, operators);
 
     return exp;
 }
