@@ -71,7 +71,7 @@ TablaOp crear_tabla_operadores (){
   tabla = cargar_operador(tabla , "--" , 1 , opuesto);
   tabla = cargar_operador(tabla , "*" , 2 , producto);
   tabla = cargar_operador(tabla , "/" , 2 , division);
-  tabla = cargar_operador(tabla , "%" , 1 , modulo);
+  tabla = cargar_operador(tabla , "%" , 2 , modulo);
   tabla = cargar_operador(tabla , "^" , 2 , potencia);
 
   return tabla;
