@@ -11,6 +11,13 @@ struct _Exp {
 
 typedef struct _Exp *Expression;
 
+struct _ListaExp {
+	Expression exp;
+	struct _ListaExp *sig;		
+};
+
+typedef struct _ListaExp *LListExp;
+
 // Crea y retorna una expresion, con su alias y su "sentence" (la expresion en si)
 // Ademas cada expresion guarda su ExpTree
 // TODO: ademas necesita la tabla de operadores para parsear la oracion
