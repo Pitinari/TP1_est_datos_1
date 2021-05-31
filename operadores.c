@@ -2,6 +2,7 @@
 #include "stdio.h"
 #include "operadores.h"
 #include "string.h"
+#include "math.h"
 
 int suma(int *args){
   return args[0]+args[1];
@@ -32,7 +33,7 @@ int modulo(int *args){
 }
 
 int potencia(int *args){
-  return args[0]^args[1];
+  return pow(args[0], args[1]);
 }
 
 void destruir_tabla_operadores(TablaOp tabla){
