@@ -37,6 +37,9 @@ int potencia(int *args){
 }
 
 void destruir_tabla_operadores(TablaOp tabla){
+  if(tabla == NULL){
+    return;
+  }
   destruir_tabla_operadores(tabla->sig);
   // sera necesaria esta linea?
   free(tabla->op->simbolo);
