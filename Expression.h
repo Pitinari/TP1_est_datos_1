@@ -3,18 +3,7 @@
 
 #include "stdlib.h"
 
-struct _Exp {
-    char *alias;
-    char *inorder;
-    ExpTree tree;
-};
-
 typedef struct _Exp *Expression;
-
-struct _ListaExp {
-	Expression exp;
-	struct _ListaExp *sig;		
-};
 
 typedef struct _ListaExp *LListExp;
 

@@ -5,6 +5,18 @@
 #include "string.h"
 #include "assert.h"
 
+struct _ExpTreeNode {
+    Operador op;
+    int value;
+    struct  _ExpTreeNode *right;
+    struct  _ExpTreeNode *left;
+};
+
+struct _ExpNodeStack {
+    struct _ExpTreeNode *node;
+    struct _ExpNodeStack *prev;
+};
+
 ExpTree ExpTree_crear() { return NULL; }
 
 void ExpTree_destruir(ExpTree nodo) {

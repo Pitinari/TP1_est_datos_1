@@ -3,6 +3,17 @@
 #include "string.h"
 #include "math.h"
 
+struct _Op{
+    char *simbolo;
+    int aridad;
+    FuncionEvaluacion evaluador;
+};
+
+struct _TablaOp{
+    struct _Op *op;
+    struct _TablaOp *sig;
+};
+
 int suma(int *args){
   return args[0]+args[1];
 }

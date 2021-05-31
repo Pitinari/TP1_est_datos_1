@@ -5,18 +5,6 @@
 #include "operadores.h"
 #include "string.h"
 
-struct _ExpTreeNode {
-    Operador op;
-    int value;
-    struct  _ExpTreeNode *right;
-    struct  _ExpTreeNode *left;
-};
-
-struct _ExpNodeStack {
-    struct _ExpTreeNode *node;
-    struct _ExpNodeStack *prev;
-};
-
 typedef struct _ExpTreeNode *ExpTree;
 
 typedef struct _ExpNodeStack *ExpNodeStack;
