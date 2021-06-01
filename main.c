@@ -13,7 +13,7 @@ char *ingresar_buffer(){
         string = realloc(string, (i+2)*sizeof(char));
         string[i] = (char) c;
     }
-    string[0]='\0';
+    string[i]='\0';
     return string;
 }
 
@@ -44,7 +44,6 @@ void evaluar_alias (char *alias , LListExp lista_alias){
 
 int analizar_comando (char *buffer , LListExp lista_alias , TablaOp operadores){
     char *primer_palabra = strsep(&buffer , " ");
-
     if (!strcmp("salir",primer_palabra))
         return 0;
 
@@ -75,13 +74,14 @@ int analizar_comando (char *buffer , LListExp lista_alias , TablaOp operadores){
 //void liberar_lista_expresiones (LListExp lista_alias){}
 
 int main() {
+    /*
     char exp[] = "87 3 ^ 42 / 3 *";
 
     int value = ((87 ^ 3) / 42 ) * 3;
+    */
 
-    printf("Created operators \n");
     TablaOp operadores = crear_tabla_operadores();
-
+    /*
     printf("Created stack \n");
     ExpNodeStack stack = NULL;
 
@@ -94,10 +94,10 @@ int main() {
     printf("Evaluate tree \n");
     printf("%d \n",ExpTree_evaluate(tree));
     printf("Evaluate tree \n");
-    printf("%d \n",value);
-    
+    printf("%d \n",value);*/
+
     int continua_programa = 1;
-    LListExp lista_alias;
+    LListExp lista_alias = NULL;
     while(continua_programa){
         printf(">");
         continua_programa = analizar_comando(ingresar_buffer(),lista_alias,operadores);
