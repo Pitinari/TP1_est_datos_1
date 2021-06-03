@@ -60,11 +60,14 @@ int analizar_comando (char *buffer , LListExp lista_alias , TablaOp operadores){
         return 1;
     }
     if (strstr(buffer, "= cargar ")){
-        while (lista_alias)
+        if(lista_alias->exp == NULL){
+            lista_alias->exp = Expression_create(primer_palabra , (buffer+9) , operadores);
+        }
+        while (lista_alias->sig)
             lista_alias = lista_alias->sig;
-        lista_alias = malloc(sizeof(struct _ListaExp));
-        lista_alias->exp = Expression_create(primer_palabra , (buffer+9) , operadores);
-        lista_alias->sig;
+        lista_alias->sig = malloc(sizeof(struct _ListaExp));
+        lista_alias->sig->exp = Expression_create(primer_palabra , (buffer+9) , operadores);
+        lista_alias->sig->sig;
     }
     else {
         printf("Comando invalido\n");
@@ -103,7 +106,9 @@ int main() {
     printf("%d \n",value);*/
 
     int continua_programa = 1;
-    LListExp lista_alias = NULL;
+    LListExp lista_alias = malloc(sizeof(struct _ListaExp));
+    lista_alias->exp = NULL;
+    lista_alias->sig = NULL;
     while(continua_programa){
         printf(">");
         continua_programa = analizar_comando(ingresar_buffer(),lista_alias,operadores);
