@@ -96,15 +96,17 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
     ExpTree tree = top(stack);
     stack = pop(stack);
 
-    if(top(stack) != NULL){
+    if(stack != NULL){
         // quedaron nodos pendientes en el stack, por lo tanto la expresion esta mal
         // liberamos todos los pendientes
-        while(top(stack) != NULL){
+        printf("---- \n");
+        while(stack != NULL){
             ExpTree_destruir(top(stack));
             stack = pop(stack);
         }
         return NULL;
     }
+
     return tree;
 }
 
