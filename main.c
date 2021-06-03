@@ -46,7 +46,11 @@ int analizar_comando (char *buffer , LListExp lista_alias , TablaOp operadores){
     char *primer_palabra = strsep(&buffer , " ");
     if (!strcmp("salir",primer_palabra))
         return 0;
-
+    
+    if (!buffer){
+        printf("Comando invalido\n");
+        return 1;
+    }
     if (!strcmp("imprimir",primer_palabra)){
         imprimir_alias(buffer,lista_alias);
         return 1;
@@ -64,14 +68,16 @@ int analizar_comando (char *buffer , LListExp lista_alias , TablaOp operadores){
     }
     else {
         printf("Comando invalido\n");
-
     }
-    free(primer_palabra);
-    free(buffer);
     return 1;
 }
 
-//void liberar_lista_expresiones (LListExp lista_alias){}
+void liberar_lista_expresiones (LListExp lista_alias){
+    if (lista_alias->sig)
+        liberar_lista_expresiones(lista_alias->sig);
+    Expression_destruir(lista_alias->exp);
+    free(lista_alias);
+}
 
 int main() {
     /*
@@ -102,6 +108,7 @@ int main() {
         printf(">");
         continua_programa = analizar_comando(ingresar_buffer(),lista_alias,operadores);
     }
-
+    liberar_lista_expresiones(lista_alias);
+    destruir_tabla_operadores(operadores);
     return 0;
 }
