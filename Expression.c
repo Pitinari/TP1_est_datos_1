@@ -5,10 +5,14 @@
 
 Expression Expression_create(char *alias, char *sentence, TablaOp operators){
     Expression exp = malloc(sizeof(struct _Exp));
-    char *aux = malloc(sizeof(char)*(strlen(sentence)));
-    strcpy(aux,sentence);
+    ExpTree tree =  ExpTree_Generate(sentence, operators);
+
+    if(tree == NULL){
+        return NULL;
+    }
+    
     exp->alias = alias;
-    exp->tree = ExpTree_Generate(aux, operators);
+    exp->tree = tree;
     exp->inorder = ExpTree_inorder(exp->tree);
 
     return exp;
