@@ -56,7 +56,7 @@ Operador buscar_operador(char *simbolo, TablaOp tabla){
 
 TablaOp cargar_operador(TablaOp indice,char sim[],int ari,FuncionEvaluacion func) {
   Operador opAux;
-  opAux = (struct _Op*)malloc(sizeof(struct _Op));
+  opAux = malloc(sizeof(struct _Op));
   opAux->simbolo = sim;
   opAux->aridad = ari;
   opAux->evaluador = func;

@@ -1,5 +1,6 @@
 #include "stdio.h"
 #include "stdlib.h"
+#include "test_ExpTree.h"
 #include "../ExpTree.h"
 #include "../operadores.h"
 #include "string.h"
@@ -9,7 +10,7 @@ void test_stack (){
     TablaOp operadores = crear_tabla_operadores();
     ExpNodeStack stack = NULL;
 
-    ExpTree tree1 = ExpTree_crear();
+    ExpTree tree1 = ExpTree_Generate("1 7 - 8 ^",operadores);;
     ExpTree tree2 = ExpTree_Generate("1 2 +",operadores);
 
     stack = push(tree1 , stack);
@@ -24,6 +25,7 @@ void test_stack (){
     stack = pop(stack);
     assert(!stack);
     destruir_tabla_operadores(operadores);
+    printf("hecho\n");
 }
 
 void test_ExpTree_Generate (){

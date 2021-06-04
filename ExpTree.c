@@ -101,6 +101,7 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
     if(stack != NULL){
         // quedaron nodos pendientes en el stack, por lo tanto la expresion esta mal
         // liberamos todos los pendientes
+        free(tree);
         while(stack != NULL){
             ExpTree_destruir(top(stack));
             stack = pop(stack);
@@ -145,11 +146,16 @@ char *ExpTree_inorder(ExpTree tree){
 
     int totalLength = strlen(leftExp) + strlen(simbol) + strlen(rightExp);
 
-    char *base = malloc(sizeof(char) * totalLength);
+    char *base = malloc(sizeof(char) * (totalLength+3));
+    // Agregamos esto para que valgrind no tome como erroneo que se concatenan strings sin inicializar
+    *base = '\0';
 
-    strcat(base, leftExp);
-    strcat(base, simbol);
-    strcat(base, rightExp);
+    // Aguegamos parentesis para que se note las prioridades ((1+2)*2)
+    base = strcat(base, "(");
+    base = strcat(base, leftExp);
+    base = strcat(base, simbol);
+    base = strcat(base, rightExp);
+    base = strcat(base, ")");
 
     free(leftExp);
     free(rightExp);

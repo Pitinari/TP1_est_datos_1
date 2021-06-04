@@ -33,4 +33,12 @@ char *ExpTree_inorder(ExpTree tree);
 
 int ExpTree_evaluate(ExpTree tree);
 
+ExpNodeStack push(ExpTree node, ExpNodeStack stack);
+
+ExpTree top(ExpNodeStack stack);
+
+ExpNodeStack pop(ExpNodeStack stack);
+
+int cant_digitos(int numero);
+
 #endif

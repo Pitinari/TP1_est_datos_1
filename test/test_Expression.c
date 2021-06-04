@@ -4,6 +4,7 @@
 #include "test_Expression.h"
 #include "stdio.h"
 #include "string.h"
+#include "assert.h"
 
 void test_ListaExp (){
     ListaExp lista = ListaExp_crear();

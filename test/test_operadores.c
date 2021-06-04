@@ -6,38 +6,51 @@
 #include "string.h"
 
 void test_suma(){
-  int args[] = {1,2};
+  int args[2];
+  args[0] = 1;
+  args[1] = 2;
   assert(suma(args)==3);
   args[0] = 2;
   args[1] = -5;
   assert(suma(args)==-3);
+  printf("hecho\n");
 }
 
 void test_resta(){
-  int args[] = {1,2};
+  int args[2];
+  args[0] = 1;
+  args[1] = 2;
   assert(resta(args)==-1);
   args[0] = 2;
   args[1] = -5;
-  assert(resta(args)==8);
+  assert(resta(args) == 7);
+  printf("hecho\n");
 }
 
 void test_opuesto(){
-  int args[] = {1};
+  int args[1];
+  args[0] = 1;
   assert(opuesto(args)==-1);
   args[0] = -2;
   assert(opuesto(args)==2);
+  printf("hecho\n");
 }
 
 void test_producto(){
-  int args[] = {1,2};
+  int args[2];
+  args[0] = 1;
+  args[1] = 2;
   assert(producto(args)==2);
   args[0] = 2;
   args[1] = -5;
   assert(producto(args)==-10);
+  printf("hecho\n");
 }
 
 void test_division(){
-  int args[] = {1,2};
+  int args[2];
+  args[0] = 1;
+  args[1] = 2;
   assert(division(args)==0);
   args[0] = 2;
   args[1] = 0;
@@ -45,22 +58,29 @@ void test_division(){
   args[0] = 4;
   args[1] = 2;
   assert(division(args)==2);
+  printf("hecho\n");
 }
 
 void test_modulo(){
-  int args[] = {3,2};
-  assert(suma(args)==1);
+  int args[2];
+  args[0] = 3;
+  args[1] = 2;
+  assert(modulo(args)==1);
   args[0] = 4;
   args[1] = 2;
-  assert(suma(args)==0);
+  assert(modulo(args)==0);
+  printf("hecho\n");
 }
 
 void test_potencia(){
-  int args[] = {1,2};
-  assert(suma(args)==1);
+  int args[2];
+  args[0] = 1;
+  args[1] = 2;
+  assert(potencia(args)==1);
   args[0] = 2;
   args[1] = 5;
-  assert(suma(args)==32);
+  assert(potencia(args)==32);
+  printf("hecho\n");
 }
 
 void test_buscar_operador (){
@@ -71,16 +91,18 @@ void test_buscar_operador (){
   tabla = NULL;
   assert(!buscar_operador("+",tabla));
   destruir_tabla_operadores(tabla);
+  printf("hecho\n");
 }
 
 void test_cargar_operador (){
   TablaOp tabla = NULL;
-  cargar_operador(tabla,"/",2,suma);
-  cargar_operador(tabla,"-",2,resta);
+  tabla = cargar_operador(tabla,"/",2,suma);
+  tabla = cargar_operador(tabla,"-",2,resta);
   assert(!strcmp(tabla->sig->op->simbolo,"/"));
   assert(tabla->sig->op->aridad == 2);
   assert(!strcmp(tabla->op->simbolo,"-"));
   destruir_tabla_operadores(tabla);
+  printf("hecho\n");
 }
 
 void test_operadores (){
@@ -93,5 +115,6 @@ void test_operadores (){
   test_potencia();
   test_buscar_operador ();
   test_cargar_operador ();
+  printf("Tests de Operadores hechos");
 }
 
