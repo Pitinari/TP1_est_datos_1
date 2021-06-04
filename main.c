@@ -20,7 +20,7 @@ char *ingresar_buffer(){
 Expression buscar_alias (char *alias , ListaExp lista){
     for (int i = 0; i < lista->filled; i++){
         if (!strcmp( alias , lista->exp[i]->alias))
-            return lista->exp;
+            return lista->exp[i];
     }
     return NULL;
 }
