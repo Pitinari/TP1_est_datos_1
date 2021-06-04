@@ -6,15 +6,18 @@
 #include "string.h"
 
 char *ingresar_buffer(){
-  int c,i; 
-  char* string = malloc(sizeof(char));
-  for(i=0;(c=getchar())!='\n'; i++)
-    {
-        string = realloc(string, (i+2)*sizeof(char));
-        string[i] = (char) c;
-    }
-    string[i]='\0';
-    return string;
+  int c,i;
+  int size = 10; 
+  char* string = malloc(sizeof(char) * size);
+  for(i=0;(c=getchar())!='\n'; i++){
+      if (size <= i){
+        size += 10;
+        string = realloc(string, sizeof(char) * 10);
+      }
+      string[i] = (char) c;
+  }
+  string[i]='\0';
+  return string;
 }
 
 void imprimir_alias (char *alias , ListaExp lista_alias){
