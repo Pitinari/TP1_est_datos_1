@@ -4,6 +4,7 @@
 #include "operadores.h"
 #include "string.h"
 #include "assert.h"
+#include "ctype.h"
 
 // la redifino aca porque no es estandar strsep
 char *strsep(char **stringp, const char *delim) {
