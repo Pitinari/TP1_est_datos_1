@@ -103,6 +103,17 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
             stack = push(node, stack);
 
         } else {
+
+            for (int i = 0; i < (int) strlen(token); i++){
+                if(!isdigit(token[i])){
+                    while(top(stack) != NULL){
+                        ExpTree_destruir(top(stack));
+                        stack = pop(stack);
+                    }
+                    return NULL;
+                }
+            }
+            
             int value = atoi(token);
 
             ExpTree node = malloc(sizeof(struct _ExpTreeNode));
