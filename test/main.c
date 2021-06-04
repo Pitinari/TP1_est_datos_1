@@ -6,7 +6,7 @@
 
 int main(){
     test_operadores();
-     printf("Tests de Operadores hechos \n");
+    printf("Tests de Operadores hechos \n");
     test_Exptree();
     printf("Tests de ExpTree hechos \n");
     test_Expression();

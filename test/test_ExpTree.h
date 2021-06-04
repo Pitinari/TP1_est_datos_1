@@ -3,6 +3,8 @@
 
 #include "stdlib.h"
 
+char *string_aux (char* string);
+
 void test_stack ();
 
 void test_ExpTree_Generate ();

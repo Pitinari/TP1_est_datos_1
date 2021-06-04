@@ -126,11 +126,11 @@ ExpTree ExpTree_Generate(char *sentence, TablaOp operadores){
 }
 
 int cant_digitos(int numero){
-  int digitos = 1;
-  while(numero != 0){
+  int digitos = 0;
+  do{
     digitos++;
     numero /= 10;
-  };
+  }while(numero != 0);
   return digitos;
 }
 

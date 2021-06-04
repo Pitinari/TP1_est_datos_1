@@ -2,6 +2,7 @@
 #include "../ExpTree.h"
 #include "../Expression.h"
 #include "test_Expression.h"
+#include "test_ExpTree.h"
 #include "stdio.h"
 #include "string.h"
 #include "assert.h"
@@ -11,14 +12,19 @@ void test_ListaExp (){
     assert(lista);
 
     TablaOp operadores = crear_tabla_operadores();
-    ListaExp_agregar(lista, Expression_create("prueba","1 2 +",operadores));
-
+    
+    char *aux = string_aux("1 2 +");
+    ListaExp_agregar(lista, Expression_create("prueba",aux,operadores));
+    free(aux);
+    
     assert(!strcmp(lista->exp[0]->alias,"prueba"));
 
-    ListaExp_agregar(lista, Expression_create("test","2 8 ^",operadores));
+    aux = string_aux("2 8 ^");
+    ListaExp_agregar(lista, Expression_create("test",aux,operadores));
+    free(aux);
 
     assert(!strcmp(lista->exp[1]->alias,"test"));
-    assert(!strcmp(lista->exp[1]->inorder,"2^8"));
+    assert(!strcmp(lista->exp[1]->inorder,"(2^8)"));
 
     assert(buscar_alias("test",lista));
     assert(!buscar_alias("falso",lista));
@@ -31,9 +37,15 @@ void test_ListaExp (){
 
 void test_Expression_create () {
     TablaOp operadores = crear_tabla_operadores();
-    Expression exp = Expression_create("prueba","1 2 +",operadores);
+
+    char *aux = string_aux("1 2 +");
+    Expression exp = Expression_create("prueba",aux,operadores);
+    free(aux);
     assert(exp);
-    assert(!Expression_create("test","1 2 2",operadores));
+    
+    aux = string_aux("1 2 2");
+    assert(!Expression_create("test",aux,operadores));
+    free(aux);
 
     assert(Expression_evaluate(exp) == 3);
 
@@ -44,6 +56,6 @@ void test_Expression_create () {
 }
 
 void test_Expression () {
-    // test_ListaExp();
-    // test_Expression_create();
+    test_ListaExp();
+    test_Expression_create();
 }

@@ -11,7 +11,7 @@ test:	main.o	$(T)$(OP).o	$(T)$(ET).o	$(T)$(EX).o
 main.o:	main.c $(T)$(EX).o $(T)$(ET).o $(T)$(OP).o	$(OP).o	$(ET).o	$(EX).o
 	gcc	-c	main.c
 
-$(T)$(EX).o: $(T)$(EX).c $(T)$(EX).h ../$(EX).h  ../$(ET).h ../$(OP).h
+$(T)$(EX).o: $(T)$(EX).c $(T)$(EX).h	$(T)$(ET).h ../$(EX).h  ../$(ET).h ../$(OP).h
 	gcc	-c	$(T)$(EX).c
 
 $(T)$(ET).o: $(T)$(ET).c $(T)$(ET).h ../$(OP).h ../$(ET).h
