@@ -40,8 +40,6 @@ void destruir_tabla_operadores(TablaOp tabla){
     return;
   }
   destruir_tabla_operadores(tabla->sig);
-  // sera necesaria esta linea?
-  free(tabla->op->simbolo);
   free(tabla->op);
   free(tabla);
 }

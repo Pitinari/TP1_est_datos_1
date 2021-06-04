@@ -25,6 +25,36 @@ void test_stack (){
     assert(!stack);
 }
 
-void test_ExpTree (){
-    
+void test_ExpTree_Generate (){
+    TablaOp tabla = crear_tabla_operadores();
+
+    assert(!ExpTree_Generate("1 2 2 +",tabla));
+    ExpTree tree1;
+    assert(!(tree1 = ExpTree_Generate("1 + +",tabla)));
+    ExpTree tree2;
+    assert(tree2 = ExpTree_Generate("1 2 + 2 *",tabla));
+
+    assert(!strcmp(ExpTree_inorder(tree1),""));
+    assert(!strcmp(ExpTree_inorder(tree2),"1+2*2"));
+
+    tree1 = ExpTree_Generate("8 3 %",tabla);
+
+    assert(ExpTree_evaluate(tree1) == 2);
+    assert(ExpTree_evaluate(tree2) == 6);
+
+    ExpTree_destruir(tree1);
+    ExpTree_destruir(tree2);
 }
+
+void test_cant_digitos (){
+    assert(cant_digitos(0) == 1);
+    assert(cant_digitos(45) == 2);
+    assert(cant_digitos(-100) == 3);
+}
+
+void test_Exptree (){
+    test_stack();
+    test_ExpTree_Generate();
+    test_cant_digitos();
+}
+

@@ -83,7 +83,6 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
             stack = push(node, stack);
 
         } else {
-            // if we want to be able to use aliases in the expression it must be done here
             int value = atoi(token);
 
             ExpTree node = malloc(sizeof(struct _ExpTreeNode));
@@ -135,7 +134,7 @@ char *ExpTree_inorder(ExpTree tree){
         int length = cant_digitos(tree->value);
         char *tmp = malloc(sizeof(char) * length);
         
-        sprintf(tmp, "%d", tree->value);;
+        sprintf(tmp, "%d", tree->value);
 
         return tmp;
     }

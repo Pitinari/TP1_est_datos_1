@@ -65,7 +65,7 @@ void test_potencia(){
 
 void test_buscar_operador (){
   TablaOp tabla = crear_tabla_operadores();
-  assert(strcmp(buscar_operador("-",tabla)->sim,"-"));
+  assert(!strcmp(buscar_operador("-",tabla)->sim,"-"));
   assert(buscar_operador("*",tabla)->aridad == 2);
   assert(!buscar_operador("8",tabla));
   tabla = NULL;
@@ -77,9 +77,9 @@ void test_cargar_operador (){
   TablaOp tabla = NULL;
   cargar_operador(tabla,"/",2,suma);
   cargar_operador(tabla,"-",2,resta);
-  assert(strcmp(tabla->sig->op->sim,"/"));
+  assert(!strcmp(tabla->sig->op->sim,"/"));
   assert(tabla->sig->op->aridad == 2);
-  assert(strcmp(tabla->op->sim,"-"));
+  assert(!strcmp(tabla->op->sim,"-"));
   destruir_tabla_operadores(tabla);
 }
 
