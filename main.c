@@ -17,16 +17,15 @@ char *ingresar_buffer(){
     return string;
 }
 
-Expression buscar_alias (char *alias , LListExp lista){
-    while(lista){
-        if (!strcmp( alias , lista->exp->alias ))
+Expression buscar_alias (char *alias , ListaExp lista){
+    for (int i = 0; i < lista->filled; i++){
+        if (!strcmp( alias , lista->exp[i]->alias))
             return lista->exp;
-        lista = lista->sig;
     }
     return NULL;
 }
 
-void imprimir_alias (char *alias , LListExp lista_alias){
+void imprimir_alias (char *alias , ListaExp lista_alias){
     Expression exp = buscar_alias(alias , lista_alias);
     if (exp)
         printf("%s\n", exp->inorder);
@@ -34,7 +33,7 @@ void imprimir_alias (char *alias , LListExp lista_alias){
         printf("No hay alias guardado con ese nombre\n");
 }
 
-void evaluar_alias (char *alias , LListExp lista_alias){
+void evaluar_alias (char *alias , ListaExp lista_alias){
     Expression exp = buscar_alias(alias , lista_alias);
     if (exp)
         printf("%d\n", Expression_evaluate(exp));
@@ -42,7 +41,7 @@ void evaluar_alias (char *alias , LListExp lista_alias){
         printf("No hay alias guardado con ese nombre\n");
 }
 
-int analizar_comando (char *buffer , LListExp lista_alias , TablaOp operadores){
+int analizar_comando (char *buffer , ListaExp lista_alias , TablaOp operadores){
     char *primer_palabra = strsep(&buffer , " ");
     if (!strcmp("salir",primer_palabra))
         return 0;
@@ -60,26 +59,12 @@ int analizar_comando (char *buffer , LListExp lista_alias , TablaOp operadores){
         return 1;
     }
     if (strstr(buffer, "= cargar ")){
-        if(lista_alias->exp == NULL){
-            lista_alias->exp = Expression_create(primer_palabra , (buffer+9) , operadores);
-        }
-        while (lista_alias->sig)
-            lista_alias = lista_alias->sig;
-        lista_alias->sig = malloc(sizeof(struct _ListaExp));
-        lista_alias->sig->exp = Expression_create(primer_palabra , (buffer+9) , operadores);
-        lista_alias->sig->sig;
+        ListaExp_agregar(lista_alias, Expression_create(primer_palabra , (buffer+9) , operadores));
     }
     else {
         printf("Comando invalido\n");
     }
     return 1;
-}
-
-void liberar_lista_expresiones (LListExp lista_alias){
-    if (lista_alias->sig)
-        liberar_lista_expresiones(lista_alias->sig);
-    Expression_destruir(lista_alias->exp);
-    free(lista_alias);
 }
 
 int main() {
@@ -106,14 +91,16 @@ int main() {
     printf("%d \n",value);*/
 
     int continua_programa = 1;
-    LListExp lista_alias = malloc(sizeof(struct _ListaExp));
-    lista_alias->exp = NULL;
-    lista_alias->sig = NULL;
+    ListaExp lista_alias = ListaExp_crear();
     while(continua_programa){
         printf(">");
         continua_programa = analizar_comando(ingresar_buffer(),lista_alias,operadores);
     }
-    liberar_lista_expresiones(lista_alias);
+    ListaExp_destruir(lista_alias);
     destruir_tabla_operadores(operadores);
     return 0;
 }
+
+
+
+

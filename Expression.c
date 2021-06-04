@@ -3,6 +3,38 @@
 #include "Expression.h"
 #include "stdio.h"
 
+
+
+ListaExp ListaExp_crear(){
+    ListaExp lista = malloc(sizeof(struct _ListaExp));
+
+    lista->size = 5;
+    lista->filled = 0;
+
+    lista->exp = malloc(sizeof(struct _Exp) * lista->size);
+
+    return lista;
+}
+
+void ListaExp_agregar(ListaExp lista, Expression exp){
+    if(lista->size - lista->filled < 1){
+        lista->exp = realloc(lista->exp, lista->size + 5);
+    }
+
+    lista->exp[lista->filled] = exp;
+    lista->filled += 1;
+}
+
+void ListaExp_destruir(ListaExp lista){
+    for (int i = 0; i < lista->filled; i++){
+        free(lista->exp[i]);
+    }
+    free(lista->exp);
+    free(lista);
+}
+
+
+
 Expression Expression_create(char *alias, char *sentence, TablaOp operators){
     Expression exp = malloc(sizeof(struct _Exp));
     ExpTree tree =  ExpTree_Generate(sentence, operators);

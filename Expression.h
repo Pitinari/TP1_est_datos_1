@@ -12,11 +12,17 @@ struct _Exp {
 typedef struct _Exp *Expression;
 
 struct _ListaExp {
-	Expression exp;
-	struct _ListaExp *sig;		
+	Expression *exp;
+    int size, filled;
 };
 
-typedef struct _ListaExp *LListExp;
+typedef struct _ListaExp *ListaExp;
+
+
+ListaExp ListaExp_crear();
+void ListaExp_agregar(ListaExp lista, Expression exp);
+void ListaExp_destruir(ListaExp lista);
+
 
 // Crea y retorna una expresion, con su alias y su "sentence" (la expresion en si)
 // Ademas cada expresion guarda su ExpTree
