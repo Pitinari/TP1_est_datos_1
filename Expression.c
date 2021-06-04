@@ -72,3 +72,11 @@ void Expression_destruir(Expression exp){
     free(exp->inorder);
     ExpTree_destruir(exp->tree);
 }
+
+Expression buscar_alias (char *alias , ListaExp lista){
+    for (int i = 0; i < lista->filled; i++){
+        if (!strcmp( alias , lista->exp[i]->alias))
+            return lista->exp[i];
+    }
+    return NULL;
+}
