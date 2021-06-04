@@ -6,11 +6,11 @@
 #include "assert.h"
 
 void test_stack (){
-
+    TablaOp operadores = crear_tabla_operadores();
     ExpNodeStack stack = NULL;
 
     ExpTree tree1 = ExpTree_crear();
-    ExpTree tree2 = ExpTree_Generate("1 2 +");
+    ExpTree tree2 = ExpTree_Generate("1 2 +",operadores);
 
     stack = push(tree1 , stack);
     assert(top(stack) == tree1);
@@ -23,6 +23,7 @@ void test_stack (){
 
     stack = pop(stack);
     assert(!stack);
+    destruir_tabla_operadores(operadores);
 }
 
 void test_ExpTree_Generate (){
@@ -37,7 +38,7 @@ void test_ExpTree_Generate (){
     assert(!strcmp(ExpTree_inorder(tree1),""));
     assert(!strcmp(ExpTree_inorder(tree2),"1+2*2"));
 
-    tree1 = ExpTree_Generate("8 3 %",tabla);
+    assert(tree1 = ExpTree_Generate("8 3 %",tabla));
 
     assert(ExpTree_evaluate(tree1) == 2);
     assert(ExpTree_evaluate(tree2) == 6);

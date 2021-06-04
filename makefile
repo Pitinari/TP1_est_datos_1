@@ -5,7 +5,7 @@ EX	=	Expression
 
 #declaracion de destinos
 main:	main.o	$(OP).o	$(ET).o	$(EX).o
-	gcc	-o $@.exe $@.o $(ET).o $(EX).o $(OP).o -lm
+	gcc	-o $@ $@.o $(ET).o $(EX).o $(OP).o -lm
 
 main.o:	main.c $(EX).o $(ET).o $(OP).o
 	gcc	-c	main.c

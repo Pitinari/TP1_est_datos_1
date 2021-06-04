@@ -12,7 +12,7 @@ char *ingresar_buffer(){
   for(i=0;(c=getchar())!='\n'; i++){
       if (size <= i){
         size += 10;
-        string = realloc(string, sizeof(char) * 10);
+        string = realloc(string, sizeof(char) * size);
       }
       string[i] = (char) c;
   }
@@ -38,19 +38,29 @@ void evaluar_alias (char *alias , ListaExp lista_alias){
 
 int analizar_comando (char *buffer , ListaExp lista_alias , TablaOp operadores){
     char *primer_palabra = strsep(&buffer , " ");
-    if (!strcmp("salir",primer_palabra))
+    // Agregue !buffer por si ingresan "salir a"
+    if (!strcmp("salir",primer_palabra) && !buffer){
+        free(primer_palabra);
         return 0;
-    
+    }
+    /*if (!strcmp("salir",primer_palabra)){
+        printf("Comando invalido\n");
+        free(primer_palabra);
+        free(buffer);
+        return 0;
+    }*/
     if (!buffer){
         printf("Comando invalido\n");
         return 1;
     }
     if (!strcmp("imprimir",primer_palabra)){
         imprimir_alias(buffer,lista_alias);
+        free(buffer);
         return 1;
     }
     if (!strcmp("evaluar",primer_palabra)){
         evaluar_alias(buffer,lista_alias);
+        free(buffer);
         return 1;
     }
     if (strstr(buffer, "= cargar ")){
@@ -60,6 +70,7 @@ int analizar_comando (char *buffer , ListaExp lista_alias , TablaOp operadores){
         } else {
             printf("Ecuacion invalida \n");
         }
+        free(buffer);
         return 1;
     }
     else {
@@ -82,7 +93,3 @@ int main() {
     destruir_tabla_operadores(operadores);
     return 0;
 }
-
-
-
-

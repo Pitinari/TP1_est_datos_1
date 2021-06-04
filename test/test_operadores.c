@@ -60,12 +60,12 @@ void test_potencia(){
   assert(suma(args)==1);
   args[0] = 2;
   args[1] = 5;
-  assert(suma(args)==32)
+  assert(suma(args)==32);
 }
 
 void test_buscar_operador (){
   TablaOp tabla = crear_tabla_operadores();
-  assert(!strcmp(buscar_operador("-",tabla)->sim,"-"));
+  assert(!strcmp(buscar_operador("-",tabla)->simbolo,"-"));
   assert(buscar_operador("*",tabla)->aridad == 2);
   assert(!buscar_operador("8",tabla));
   tabla = NULL;
@@ -77,21 +77,21 @@ void test_cargar_operador (){
   TablaOp tabla = NULL;
   cargar_operador(tabla,"/",2,suma);
   cargar_operador(tabla,"-",2,resta);
-  assert(!strcmp(tabla->sig->op->sim,"/"));
+  assert(!strcmp(tabla->sig->op->simbolo,"/"));
   assert(tabla->sig->op->aridad == 2);
-  assert(!strcmp(tabla->op->sim,"-"));
+  assert(!strcmp(tabla->op->simbolo,"-"));
   destruir_tabla_operadores(tabla);
 }
 
 void test_operadores (){
-  test_suma()
-  test_resta()
-  test_opuesto()
-  test_producto()
-  test_division()
-  test_modulo()
-  test_potencia()
-  test_buscar_operador ()
-  test_cargar_operador ()
+  test_suma();
+  test_resta();
+  test_opuesto();
+  test_producto();
+  test_division();
+  test_modulo();
+  test_potencia();
+  test_buscar_operador ();
+  test_cargar_operador ();
 }
 
