@@ -46,13 +46,13 @@ void ListaExp_destruir(ListaExp lista){
 
 
 Expression Expression_create(char *alias, char *sentence, TablaOp operators){
-    Expression exp = malloc(sizeof(struct _Exp));
     ExpTree tree =  ExpTree_Generate(sentence, operators);
 
     if(tree == NULL){
         return NULL;
     }
 
+    Expression exp = malloc(sizeof(struct _Exp));
     exp->alias = malloc(sizeof(char)*(strlen(alias)+1));
     strcpy(exp->alias , alias);
     exp->tree = tree;
