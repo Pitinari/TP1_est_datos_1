@@ -37,4 +37,4 @@ $(T)$(OP).o:	$(OP).h	./test/$(T)$(OP).c	./test/$(T)$(OP).h
 	gcc -c  ./test/$(T)$(OP).c -lm
 clean:
 	rm	*.o
-	rm  main
+	rm  *.out
