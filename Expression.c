@@ -17,10 +17,19 @@ ListaExp ListaExp_crear(){
 }
 
 void ListaExp_agregar(ListaExp lista, Expression exp){
+    // if not big enough resize
     if(lista->size <= lista->filled){
         lista->size = lista->size + 5;
         lista->exp = realloc(lista->exp, sizeof(struct _Exp) * lista->size);
     }
+    // if alias already exist replace it
+    for (int i = 0; i < lista->filled; i++){
+        if (!strcmp(exp->alias, lista->exp[i]->alias)){
+            lista->exp[i] = exp;
+            return;
+        }
+    }
+    // add it if not
     lista->exp[lista->filled] = exp;
     lista->filled += 1;
 }
