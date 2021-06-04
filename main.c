@@ -59,7 +59,13 @@ int analizar_comando (char *buffer , ListaExp lista_alias , TablaOp operadores){
         return 1;
     }
     if (strstr(buffer, "= cargar ")){
-        ListaExp_agregar(lista_alias, Expression_create(primer_palabra , (buffer+9) , operadores));
+        Expression exp = Expression_create(primer_palabra , (buffer+9) , operadores);
+        if(exp != NULL){
+            ListaExp_agregar(lista_alias, exp);
+        } else {
+            printf("Ecuacion invalida \n");
+        }
+        return 1;
     }
     else {
         printf("Comando invalido\n");
@@ -92,12 +98,14 @@ int main() {
 
     int continua_programa = 1;
     ListaExp lista_alias = ListaExp_crear();
+    
+
     while(continua_programa){
         printf(">");
         continua_programa = analizar_comando(ingresar_buffer(),lista_alias,operadores);
     }
     ListaExp_destruir(lista_alias);
-    destruir_tabla_operadores(operadores);
+    // destruir_tabla_operadores(operadores);
     return 0;
 }
 

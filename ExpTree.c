@@ -25,9 +25,13 @@ ExpNodeStack push(ExpTree node, ExpNodeStack stack){
 }
 
 ExpTree top(ExpNodeStack stack){
-    return stack->node;
+    return stack ? stack->node : NULL;
 }
 ExpNodeStack pop(ExpNodeStack stack){
+
+    if(stack == NULL){
+        return NULL;
+    }
 
     ExpTree n = stack->node;
 
@@ -38,10 +42,9 @@ ExpNodeStack pop(ExpNodeStack stack){
 }
 
 ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
-
     char *token;
-    while(token = strsep(&sentence, " ")){
 
+    while(token = strsep(&sentence, " ")){
         Operador op = buscar_operador(token,tabla);
 
         if(op != NULL){
@@ -66,7 +69,7 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
 
             if(op->aridad == 2){
                 node->left = top(stack);
-                if(node->right == NULL){
+                if(node->left == NULL){
                     // error en la expresion retornamos null
                     while(top(stack) != NULL){
                         ExpTree_destruir(top(stack));
