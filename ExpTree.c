@@ -185,13 +185,17 @@ char *ExpTree_inorder(ExpTree tree){
 
     // Aguegamos parentesis para que se note las prioridades ((1+2)*2)
     base = strcat(base, "(");
-    base = strcat(base, leftExp);
+    if(strcmp(leftExp, "") != 0){
+        base = strcat(base, leftExp);
+        free(leftExp);
+    }
     base = strcat(base, simbol);
-    base = strcat(base, rightExp);
+    if(strcmp(leftExp, "") != 0){
+        base = strcat(base, rightExp);
+        free(rightExp);
+    }
     base = strcat(base, ")");
 
-    free(leftExp);
-    free(rightExp);
 
     return base;
 }
