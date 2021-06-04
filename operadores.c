@@ -82,7 +82,7 @@ TablaOp cargar_operador(TablaOp indice,char sim[],int ari,FuncionEvaluacion func
 
   return new;
 }
-FuncionEvaluacion
+
 //crear_tabla_operadores : Nada -> *(_TablaOp)
 //Inicializa un puntero NULL para nuestra futura tabla y la crea agregando
 //los operadores con cargar_operador
