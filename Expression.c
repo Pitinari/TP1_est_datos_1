@@ -79,7 +79,7 @@ int validar_alias(char *alias){
     }
 
     // son todos alfanumericos
-    for (int i = 0; i < strlen(alias); i++){
+    for (int i = 0; i < (int) strlen(alias); i++){
         if(!isalnum(alias[i])){
             return 0;
         }

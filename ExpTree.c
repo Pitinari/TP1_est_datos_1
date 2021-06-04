@@ -5,6 +5,18 @@
 #include "string.h"
 #include "assert.h"
 
+// la redifino aca porque no es estandar strsep
+char *strsep(char **stringp, const char *delim) {
+    char *rv = *stringp;
+    if (rv) {
+        *stringp += strcspn(*stringp, delim);
+        if (**stringp)
+            *(*stringp)++ = '\0';
+        else
+            *stringp = 0; }
+    return rv;
+}
+
 ExpTree ExpTree_crear() { return NULL; }
 
 //ExpTree_destruir : *(struct _ExpTreeNode) -> Nada
@@ -52,7 +64,7 @@ ExpNodeStack pop(ExpNodeStack stack){
 ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
     char *token;
 
-    while(token = strsep(&sentence, " ")){
+    while((token = strsep(&sentence, " "))){
         Operador op = buscar_operador(token,tabla);
 
         if(op != NULL){

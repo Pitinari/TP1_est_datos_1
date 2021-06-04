@@ -5,6 +5,8 @@
 #include "operadores.h"
 #include "string.h"
 
+char *strsep(char **stringp, const char *delim);
+
 struct _ExpTreeNode {
     Operador op;
     int value;
