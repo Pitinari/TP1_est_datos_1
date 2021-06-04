@@ -8,7 +8,7 @@
 ListaExp ListaExp_crear(){
     ListaExp lista = malloc(sizeof(struct _ListaExp));
 
-    lista->size = 5;
+    lista->size = 1;
     lista->filled = 0;
 
     lista->exp = malloc(sizeof(struct _Exp) * lista->size);
@@ -17,10 +17,10 @@ ListaExp ListaExp_crear(){
 }
 
 void ListaExp_agregar(ListaExp lista, Expression exp){
-    if(lista->size - lista->filled < 1){
-        lista->exp = realloc(lista->exp, lista->size + 5);
+    if(lista->size <= lista->filled){
+        lista->size = lista->size + 5;
+        lista->exp = realloc(lista->exp, sizeof(struct _Exp) * lista->size);
     }
-
     lista->exp[lista->filled] = exp;
     lista->filled += 1;
 }
