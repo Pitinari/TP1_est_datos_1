@@ -25,6 +25,8 @@ void test_ListaExp (){
 
     ListaExp_destruir(lista);
     destruir_tabla_operadores(operadores);
+
+    printf("%s passed\n", __func__);
 }
 
 void test_Expression_create () {
@@ -37,9 +39,11 @@ void test_Expression_create () {
 
     Expression_destruir(exp);
     destruir_tabla_operadores(operadores);
+
+    printf("%s passed\n", __func__);
 }
 
 void test_Expression () {
-    test_ListaExp();
-    test_Expression_create();
+    // test_ListaExp();
+    // test_Expression_create();
 }
