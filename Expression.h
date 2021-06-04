@@ -40,6 +40,9 @@ void Expression_print(Expression exp);
 // Destruye la expresion liberando memoria
 void Expression_destruir(Expression exp);
 
+// valida que un alias cumpla con las condiciones necesarias
+int validar_alias(char *alias);
+
 // Busca un alias dentro de la lista de expresiones desde un string y devuelve la expresion
 Expression buscar_alias (char *alias , ListaExp lista);
 

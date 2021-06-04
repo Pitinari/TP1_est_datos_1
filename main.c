@@ -52,15 +52,11 @@ int analizar_comando (char *buffer , ListaExp lista_alias , TablaOp operadores){
         printf("Comando invalido\n");
         return 1;
     }
-    if (!strcmp("imprimir",primer_palabra)){
-        imprimir_alias(buffer,lista_alias);
-        return 1;
-    }
-    if (!strcmp("evaluar",primer_palabra)){
-        evaluar_alias(buffer,lista_alias);
-        return 1;
-    }
     if (strstr(buffer, "= cargar ")){
+        if(!validar_alias(primer_palabra)){
+            printf("Alias invalido \n");
+            return 1;
+        }
         Expression exp = Expression_create(primer_palabra , (buffer+9) , operadores);
         if(exp != NULL){
             ListaExp_agregar(lista_alias, exp);
@@ -71,6 +67,14 @@ int analizar_comando (char *buffer , ListaExp lista_alias , TablaOp operadores){
     }
     else {
         printf("Comando invalido\n");
+    }
+    if (!strcmp("imprimir",primer_palabra)){
+        imprimir_alias(buffer,lista_alias);
+        return 1;
+    }
+    if (!strcmp("evaluar",primer_palabra)){
+        evaluar_alias(buffer,lista_alias);
+        return 1;
     }
     return 1;
 }

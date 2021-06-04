@@ -2,6 +2,7 @@
 #include "ExpTree.h"
 #include "Expression.h"
 #include "stdio.h"
+#include "ctype.h"
 
 
 
@@ -72,6 +73,36 @@ void Expression_destruir(Expression exp){
     free(exp->alias);
     free(exp->inorder);
     ExpTree_destruir(exp->tree);
+}
+
+int validar_alias(char *alias){
+    // es no numerico 
+    if(isdigit(alias[0])){
+        return 0;
+    }
+
+    // son todos alfanumericos
+    for (int i = 0; i < strlen(alias); i++){
+        if(!isalnum(alias[i])){
+            return 0;
+        }
+    }
+
+    if(!strcmp(alias,"cargar")){
+        return 0;
+    }
+    if(!strcmp(alias,"imprimir")){
+        return 0;
+    }
+    if(!strcmp(alias,"evaluar")){
+        return 0;
+    }
+    if(!strcmp(alias,"salir")){
+        return 0;
+    }
+
+    return 1;
+    
 }
 
 Expression buscar_alias (char *alias , ListaExp lista){
