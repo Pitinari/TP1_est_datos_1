@@ -61,6 +61,7 @@ int analizar_comando (char *buffer , ListaExp lista_alias , TablaOp operadores){
         if(exp != NULL){
             ListaExp_agregar(lista_alias, exp);
         } else {
+            free(exp);
             printf("Ecuacion invalida \n");
         }
         return 1;

@@ -37,7 +37,7 @@ void ListaExp_agregar(ListaExp lista, Expression exp){
 
 void ListaExp_destruir(ListaExp lista){
     for (int i = 0; i < lista->filled; i++){
-        free(lista->exp[i]);
+        Expression_destruir(lista->exp[i]);
     }
     free(lista->exp);
     free(lista);
@@ -52,8 +52,9 @@ Expression Expression_create(char *alias, char *sentence, TablaOp operators){
     if(tree == NULL){
         return NULL;
     }
-    
-    exp->alias = alias;
+
+    exp->alias = malloc(sizeof(char)*(strlen(alias)+1));
+    strcpy(exp->alias , alias);
     exp->tree = tree;
     exp->inorder = ExpTree_inorder(exp->tree);
 
@@ -73,6 +74,7 @@ void Expression_destruir(Expression exp){
     free(exp->alias);
     free(exp->inorder);
     ExpTree_destruir(exp->tree);
+    free(exp);
 }
 
 int validar_alias(char *alias){
