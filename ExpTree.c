@@ -7,6 +7,8 @@
 
 ExpTree ExpTree_crear() { return NULL; }
 
+//ExpTree_destruir : *(struct _ExpTreeNode) -> Nada
+//destruye los nodos del arbol recursivamente
 void ExpTree_destruir(ExpTree nodo) {
     if (nodo != NULL) {
         ExpTree_destruir(nodo->left);
@@ -15,6 +17,8 @@ void ExpTree_destruir(ExpTree nodo) {
     }
 }
 
+//push : *(struct _ExpTreeNode) -> *(struct _ExpNodeStack) -> *(struct _ExpNodeStack)
+//Crea un nodo de pila, que apunta al nodo de arbol, y lo coloca arriba en la pila
 ExpNodeStack push(ExpTree node, ExpNodeStack stack){
     ExpNodeStack new = malloc(sizeof(struct _ExpNodeStack));
 
@@ -24,16 +28,19 @@ ExpNodeStack push(ExpTree node, ExpNodeStack stack){
     return new;
 }
 
+//top : *(struct _ExpNodeStack) -> *(struct _ExpTreeNode)
+//Tomando una pila, devuelve el nodo de arbol al que apunta el primer valor de la pila
 ExpTree top(ExpNodeStack stack){
     return stack ? stack->node : NULL;
 }
+
+//pop : *(struct _ExpNodeStack) -> *(struct _ExpNodeStack)
+//Tomando una pila, libera el primer nodo de la pila y devuelve la pila apuntando al segundo nodo
 ExpNodeStack pop(ExpNodeStack stack){
 
     if(stack == NULL){
         return NULL;
     }
-
-    ExpTree n = stack->node;
 
     ExpNodeStack prev = stack->prev;
     free(stack);
@@ -41,6 +48,7 @@ ExpNodeStack pop(ExpNodeStack stack){
 
 }
 
+//ExpTree_Parse : *char -> *(struct _ExpNodeStack) -> *(struct _TablaOp) -> *(struct _ExpTreeNode)
 ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
     char *token;
 
@@ -101,7 +109,7 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
     if(stack != NULL){
         // quedaron nodos pendientes en el stack, por lo tanto la expresion esta mal
         // liberamos todos los pendientes
-        free(tree);
+        ExpTree_destruir(tree);
         while(stack != NULL){
             ExpTree_destruir(top(stack));
             stack = pop(stack);
@@ -146,6 +154,7 @@ char *ExpTree_inorder(ExpTree tree){
 
     int totalLength = strlen(leftExp) + strlen(simbol) + strlen(rightExp);
 
+    // +3 de los parentesis y terminador
     char *base = malloc(sizeof(char) * (totalLength+3));
     // Agregamos esto para que valgrind no tome como erroneo que se concatenan strings sin inicializar
     *base = '\0';

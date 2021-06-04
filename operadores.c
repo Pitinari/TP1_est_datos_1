@@ -3,22 +3,27 @@
 #include "string.h"
 #include "math.h"
 
+//suma : *int -> int
 int suma(int *args){
   return args[0]+args[1];
 }
 
+//resta : *int -> int
 int resta(int *args){
   return args[0]-args[1];
 }
 
+//resta : *int -> int
 int opuesto(int *args){
   return -(*args);
 }
 
+//resta : *int -> int
 int producto(int *args){
   return args[0]*args[1];
 }
 
+//resta : *int -> int
 int division(int *args){
   // decision completamente arbitraria para que no crashee el programa
   if(args[1] == 0){
@@ -27,14 +32,17 @@ int division(int *args){
   return args[0]/args[1];
 }
 
+//resta : *int -> int
 int modulo(int *args){
   return args[0] % args[1];
 }
 
+//resta : *int -> int
 int potencia(int *args){
   return pow(args[0], args[1]);
 }
 
+//destruir_tabla_operadores : *(struct _TablaOp) -> Nada
 void destruir_tabla_operadores(TablaOp tabla){
   if(tabla == NULL){
     return;
@@ -44,6 +52,10 @@ void destruir_tabla_operadores(TablaOp tabla){
   free(tabla);
 }
 
+//buscar_operador : *char -> *(struct _TablaOp) -> *(_Op)
+//Compara el simbolo pasado como *char con cada uno de los simbolos 
+//dentro de los operadores de la tabla y devuelve el 
+//operador que sea igual, en caso de no encontrar devuelve null
 Operador buscar_operador(char *simbolo, TablaOp tabla){
   while(tabla != NULL){
     if(strcmp(tabla->op->simbolo, simbolo) == 0) {
@@ -54,6 +66,9 @@ Operador buscar_operador(char *simbolo, TablaOp tabla){
   return NULL;
 }
 
+//cargar_operador : *(struct _TablaOp) -> *char -> int -> FuncionEvaluacion -> *(struct _TablaOp)
+//Crea un operador con los datos datos y luego de crear un nuevo nodo de 
+// la tabla, hace que apunte al operador y coloca el nodo al principio de la lista
 TablaOp cargar_operador(TablaOp indice,char sim[],int ari,FuncionEvaluacion func) {
   Operador opAux;
   opAux = malloc(sizeof(struct _Op));
@@ -67,7 +82,10 @@ TablaOp cargar_operador(TablaOp indice,char sim[],int ari,FuncionEvaluacion func
 
   return new;
 }
-
+FuncionEvaluacion
+//crear_tabla_operadores : Nada -> *(_TablaOp)
+//Inicializa un puntero NULL para nuestra futura tabla y la crea agregando
+//los operadores con cargar_operador
 TablaOp crear_tabla_operadores (){
   TablaOp tabla = NULL;
 
