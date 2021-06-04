@@ -65,10 +65,7 @@ int analizar_comando (char *buffer , ListaExp lista_alias , TablaOp operadores){
             printf("Ecuacion invalida \n");
         }
         return 1;
-    }
-    else {
-        printf("Comando invalido\n");
-    }
+    } 
     if (!strcmp("imprimir",primer_palabra)){
         imprimir_alias(buffer,lista_alias);
         return 1;
@@ -77,6 +74,8 @@ int analizar_comando (char *buffer , ListaExp lista_alias , TablaOp operadores){
         evaluar_alias(buffer,lista_alias);
         return 1;
     }
+
+    printf("Comando invalido\n");
     return 1;
 }
 
