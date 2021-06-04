@@ -13,7 +13,7 @@ void test_suma(){
   args[0] = 2;
   args[1] = -5;
   assert(suma(args)==-3);
-  printf("hecho\n");
+  printf("%s passed\n", __func__);
 }
 
 void test_resta(){
@@ -24,7 +24,7 @@ void test_resta(){
   args[0] = 2;
   args[1] = -5;
   assert(resta(args) == 7);
-  printf("hecho\n");
+  printf("%s passed\n", __func__);
 }
 
 void test_opuesto(){
@@ -33,7 +33,7 @@ void test_opuesto(){
   assert(opuesto(args)==-1);
   args[0] = -2;
   assert(opuesto(args)==2);
-  printf("hecho\n");
+  printf("%s passed\n", __func__);
 }
 
 void test_producto(){
@@ -44,7 +44,7 @@ void test_producto(){
   args[0] = 2;
   args[1] = -5;
   assert(producto(args)==-10);
-  printf("hecho\n");
+  printf("%s passed\n", __func__);
 }
 
 void test_division(){
@@ -58,7 +58,7 @@ void test_division(){
   args[0] = 4;
   args[1] = 2;
   assert(division(args)==2);
-  printf("hecho\n");
+  printf("%s passed\n", __func__);
 }
 
 void test_modulo(){
@@ -69,7 +69,7 @@ void test_modulo(){
   args[0] = 4;
   args[1] = 2;
   assert(modulo(args)==0);
-  printf("hecho\n");
+  printf("%s passed\n", __func__);
 }
 
 void test_potencia(){
@@ -80,7 +80,7 @@ void test_potencia(){
   args[0] = 2;
   args[1] = 5;
   assert(potencia(args)==32);
-  printf("hecho\n");
+  printf("%s passed\n", __func__);
 }
 
 void test_buscar_operador (){
@@ -91,7 +91,7 @@ void test_buscar_operador (){
   tabla = NULL;
   assert(!buscar_operador("+",tabla));
   destruir_tabla_operadores(tabla);
-  printf("hecho\n");
+  printf("%s passed\n", __func__);
 }
 
 void test_cargar_operador (){
@@ -102,7 +102,7 @@ void test_cargar_operador (){
   assert(tabla->sig->op->aridad == 2);
   assert(!strcmp(tabla->op->simbolo,"-"));
   destruir_tabla_operadores(tabla);
-  printf("hecho\n");
+  printf("%s passed\n", __func__);
 }
 
 void test_operadores (){
@@ -115,6 +115,5 @@ void test_operadores (){
   test_potencia();
   test_buscar_operador ();
   test_cargar_operador ();
-  printf("Tests de Operadores hechos");
 }
 

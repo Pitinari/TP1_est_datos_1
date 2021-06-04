@@ -25,7 +25,7 @@ void test_stack (){
     stack = pop(stack);
     assert(!stack);
     destruir_tabla_operadores(operadores);
-    printf("hecho\n");
+    printf("%s passed\n", __func__);
 }
 
 void test_ExpTree_Generate (){
@@ -57,7 +57,7 @@ void test_cant_digitos (){
 
 void test_Exptree (){
     test_stack();
-    test_ExpTree_Generate();
-    test_cant_digitos();
+    // test_ExpTree_Generate();
+    // test_cant_digitos();
 }
 
