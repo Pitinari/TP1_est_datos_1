@@ -49,6 +49,14 @@ void test_Expression_create () {
 
     assert(Expression_evaluate(exp) == 3);
 
+    aux = string_aux("test");
+    assert(validar_alias(aux) == 1);
+    free(aux);
+    aux = string_aux("1prueba");
+    assert(validar_alias(aux) == 0);
+    free(aux);
+
+
     Expression_destruir(exp);
     destruir_tabla_operadores(operadores);
 
