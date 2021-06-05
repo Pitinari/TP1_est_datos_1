@@ -62,19 +62,21 @@ ExpNodeStack pop(ExpNodeStack stack){
 }
 
 //ExpTree_Parse : *char -> *(struct _ExpNodeStack) -> *(struct _TablaOp) -> *(struct _ExpTreeNode)
+//Dada una cadena de caracteres transforma la misma en un arbol de operadores y valores
 ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
     char *token;
 
+    //hasta que no haya mas valores o caracteres
     while((token = strsep(&sentence, " "))){
         Operador op = buscar_operador(token,tabla);
-
+        //si el caracter es un operador
         if(op != NULL){
             ExpTree node = malloc(sizeof(struct _ExpTreeNode));
 
             node->op = op;
             node->value = 0; //por las dudas, no deberia ser accedido nunca
 
-            if(op->aridad >= 1){
+            if(op->aridad >= 1){    //si la aridad es al menos 1, se carga el nodo derecho del arbol
                 node->right = top(stack);
                 if(node->right == NULL){
                     // error en la expresion retornamos null
@@ -84,11 +86,11 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
                     }
                     return NULL;
                 }
-                stack = pop(stack);
+                stack = pop(stack); //borramos el nodo que acabamos de sacar
                 node->left = NULL;
             }
 
-            if(op->aridad == 2){
+            if(op->aridad == 2){    //si es de aridad 2, completamos con el nodo izquierdo
                 node->left = top(stack);
                 if(node->left == NULL){
                     // error en la expresion retornamos null
@@ -101,12 +103,14 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
                 stack = pop(stack);
             }
 
-            stack = push(node, stack);
+            stack = push(node, stack); //colocamos el arbol recien formado en la pila
 
-        } else {
+        } else {//si es un valor
 
             for (int i = 0; i < (int) strlen(token); i++){
-                if(!isdigit(token[i])){
+                if(token[i] == '-' && i == 0)
+                    continue;
+                if(!isdigit(token[i])){ // si el valor con es un numero, es un error, es invalido
                     while(top(stack) != NULL){
                         ExpTree_destruir(top(stack));
                         stack = pop(stack);
@@ -117,14 +121,14 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
             
             int value = atoi(token);
 
-            ExpTree node = malloc(sizeof(struct _ExpTreeNode));
+            ExpTree node = malloc(sizeof(struct _ExpTreeNode)); //cargamos el nodo de un valor
 
             node->op = NULL;
             node->value = value;
             node->right = ExpTree_crear();
             node->left = ExpTree_crear();
 
-            stack = push(node, stack);
+            stack = push(node, stack);  //colocamos el nodo en la pila
         }
     }
     ExpTree tree = top(stack);
@@ -144,30 +148,39 @@ ExpTree ExpTree_Parse(char *sentence,ExpNodeStack stack, TablaOp tabla){
     return tree;
 }
 
+// ExpTree_Generate : *char -> *(struct _TablaOp) -> *(struct _ExpTreeNode)
 ExpTree ExpTree_Generate(char *sentence, TablaOp operadores){
     ExpNodeStack stack = NULL;
     return ExpTree_Parse(sentence,stack,operadores);
 }
 
+// cant_digitos : int -> int
+// Tomando un numero entero retorna la cantidad de digitos del mismo
 int cant_digitos(int numero){
   int digitos = 0;
   do{
     digitos++;
-    numero /= 10;
+    numero /= 10; //Seria lo mismo que truncar el entero
   }while(numero != 0);
   return digitos;
 }
 
+// ExpTree_inorder : *(struct _ExpTreeNode) -> *char
+// Dado un arbol, arma un string del mismo en forma inorder (izquierda medio derecha)
 char *ExpTree_inorder(ExpTree tree){
     if(tree == NULL){
         return "";
     }
 
-    if(tree->op == NULL){
+    if(tree->op == NULL){ // si es un valor 
         int length = cant_digitos(tree->value);
-        char *tmp = malloc(sizeof(char) * length);
+        char *tmp;
+        if (tree->value < 0)
+            tmp = malloc(sizeof(char) * length+2);
+        else
+            tmp = malloc(sizeof(char) * length+1);
         
-        sprintf(tmp, "%d", tree->value);
+        sprintf(tmp, "%d", tree->value);  //transformamos el entero
 
         return tmp;
     }
@@ -185,21 +198,22 @@ char *ExpTree_inorder(ExpTree tree){
 
     // Aguegamos parentesis para que se note las prioridades ((1+2)*2)
     base = strcat(base, "(");
-    if(strcmp(leftExp, "") != 0){
-        base = strcat(base, leftExp);
-        free(leftExp);
-    }
+
+    base = strcat(base, leftExp);
     base = strcat(base, simbol);
-    if(strcmp(leftExp, "") != 0){
-        base = strcat(base, rightExp);
-        free(rightExp);
-    }
+    base = strcat(base, rightExp);
+    
     base = strcat(base, ")");
 
+    if (strcmp(leftExp , ""))
+        free(leftExp);
+    if (strcmp(rightExp , ""))
+        free(rightExp);
 
     return base;
 }
 
+// ExpTree_evaluate : *(struct _ExpTreeNode) -> int
 int ExpTree_evaluate(ExpTree tree){    
     if(tree->op == NULL) {
         return tree->value;

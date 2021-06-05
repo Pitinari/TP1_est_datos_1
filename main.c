@@ -16,6 +16,7 @@ char *ingresar_buffer(){
       }
       string[i] = (char) c;
   }
+  string = realloc(string, sizeof(char)*(size+1));
   string[i]='\0';
   return string;
 }

@@ -36,6 +36,9 @@ $(T)$(ET).o: ./test/$(T)$(ET).c ./test/$(T)$(ET).h $(OP).h $(ET).h
 
 $(T)$(OP).o:	$(OP).h	./test/$(T)$(OP).c	./test/$(T)$(OP).h
 	gcc $(FLAGS) -c  ./test/$(T)$(OP).c -lm
+
 clean:
 	rm	*.o
 	rm  *.out
+	rm	./test/*.o
+	rm	./test/*.out
