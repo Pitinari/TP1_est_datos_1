@@ -6,7 +6,13 @@
 #include "assert.h"
 #include "ctype.h"
 
-// la redifino aca porque no es estandar strsep
+// strsep : **char -> *char -> *char
+// Toma la direccion de memoria de un puntero de char y si aparece
+// dentro del string, dado por el puntero al que apunta la direccion de 
+// memoria del primer parametro, el string del segundo parametro, la funcion
+// devuelve el primer string hasta la aparicion del segundo string, y mueve la
+// memoria del primer parametro hasta despues de la primera aparicion del
+// segundo parametro
 char *strsep(char **stringp, const char *delim) {
     char *rv = *stringp;
     if (rv) {
@@ -18,6 +24,7 @@ char *strsep(char **stringp, const char *delim) {
     return rv;
 }
 
+// ExpTree_crear : Nada -> *(_ExpTreeNode)
 ExpTree ExpTree_crear() { return NULL; }
 
 //ExpTree_destruir : *(struct _ExpTreeNode) -> Nada
@@ -196,7 +203,7 @@ char *ExpTree_inorder(ExpTree tree){
     // Agregamos esto para que valgrind no tome como erroneo que se concatenan strings sin inicializar
     *base = '\0';
 
-    // Aguegamos parentesis para que se note las prioridades ((1+2)*2)
+    // Agregamos parentesis para que se note las prioridades ((1+2)*2)
     base = strcat(base, "(");
 
     base = strcat(base, leftExp);
@@ -214,19 +221,20 @@ char *ExpTree_inorder(ExpTree tree){
 }
 
 // ExpTree_evaluate : *(struct _ExpTreeNode) -> int
+// Tomando un arbol evalua cada operador con su/s hijo/s y devuelve el valor entero de la expresion
 int ExpTree_evaluate(ExpTree tree){    
-    if(tree->op == NULL) {
+    if(tree->op == NULL) {  //Si no es operador retornar el numero
         return tree->value;
     }
 
     int params[2];
 
     int rightValue = ExpTree_evaluate(tree->right);
-    if(tree->op->aridad == 1) {
+    if(tree->op->aridad == 1) { //en el caso que sea de aridad 1
         params[0] = rightValue;
     }
 
-    if(tree->op->aridad == 2) {
+    if(tree->op->aridad == 2) { //en el caso que sea de aridad 1
     int leftValue = ExpTree_evaluate(tree->left);
         params[0] = leftValue;
         params[1] = rightValue;
